@@ -1,0 +1,4 @@
+change language clicking the file extention in the title 
+use tab to accept autocomplete 
+
+  planning to be functional by the 8th hopefully 
