@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Notepad++-Style Editor with Auto-Close and Autocomplete</title>
+  <title>Sablescript</title>
 
-  <!-- CodeMirror core CSS -->
+  
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.css"
   />
-  <!-- Theme (pick any) -->
+  
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/theme/eclipse.min.css"
   />
 
-  <!-- Show-Hint CSS for autocomplete suggestions -->
+  
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.css"
   />
 
   <style>
-    /* Basic Reset */
+    
     * {
       margin: 0;
       padding: 0;
@@ -34,28 +34,28 @@
       background: #f0f0f0;
     }
     body {
-      display: flex; /* sidebar + main section side by side */
+      display: flex; 
       flex-direction: row;
     }
 
-    /* --- SIDEBAR --- */
+    
     .sidebar {
       width: 200px;
       background-color: #fafafa;
       border-right: 1px solid #ccc;
       display: flex;
       flex-direction: column;
-      justify-content: space-between; /* top content + bottom content */
+      justify-content: space-between; 
     }
 
-    /* Top portion of sidebar (search, buttons, tabs) */
+    
     .sidebar-top {
       display: flex;
       flex-direction: column;
       padding: 8px;
     }
 
-    /* Search bar at the top of sidebar */
+    
     .sidebar-search {
       margin-bottom: 8px;
     }
@@ -66,7 +66,7 @@
       border-radius: 3px;
     }
 
-    /* "New" button (full width) */
+    
     #btnNew {
       width: 100%;
       margin-bottom: 8px;
@@ -80,7 +80,7 @@
       background-color: #e9e9e9;
     }
 
-    /* Row with Load/Save (each half width) */
+    
     .load-save-row {
       display: flex;
       flex-direction: row;
@@ -102,17 +102,17 @@
       background-color: #e9e9e9;
     }
 
-    /* Tabs container */
+    
     .tabs-container {
       background-color: #fff;
       border: 1px solid #ccc;
-      min-height: 100px; /* ensures some space for demonstration */
+      min-height: 100px; 
       border-radius: 3px;
       overflow-y: auto;
       padding: 4px;
     }
     .tab-item {
-      position: relative; /* for the close button positioning */
+      position: relative; 
       padding: 4px 6px;
       margin-bottom: 4px;
       border: 1px solid #ccc;
@@ -130,26 +130,26 @@
       border-color: #66aaff;
     }
 
-    /* Tab title text */
+    
     .tab-title {
       display: inline-block;
     }
 
-    /* Tab rename input (hidden by default) */
+    
     .tab-rename-input {
       display: none;
-      width: calc(100% - 26px); /* account for close button space */
+      width: calc(100% - 26px); 
       border: 1px solid #ccc;
       border-radius: 3px;
       padding: 2px 4px;
     }
 
-    /* The close button (X) */
+    
     .tab-close {
       position: absolute;
       right: 4px;
       top: 4px;
-      display: none; /* only show on hover */
+      display: none; 
       cursor: pointer;
       font-weight: bold;
       color: #777;
@@ -161,7 +161,7 @@
       color: red;
     }
 
-    /* Bottom portion of sidebar (Extensions, Settings) */
+    
     .sidebar-bottom {
       padding: 8px;
       display: flex;
@@ -180,14 +180,14 @@
       background-color: #e9e9e9;
     }
 
-    /* --- MAIN SECTION (right side) --- */
+    
     .main-section {
       flex: 1;
       display: flex;
       flex-direction: column;
     }
 
-    /* Top bar (filename in center, run button right) */
+    
     .topbar {
       display: flex;
       align-items: center;
@@ -196,22 +196,22 @@
       min-height: 40px;
       padding: 0 10px;
     }
-    /* The file-info area in the center */
+    
     .file-info {
       flex: 1;
-      text-align: center; /* center the filename */
+      text-align: center; 
       position: relative;
       user-select: none;
     }
 
-    /* We'll have a "label" for the base name and a hidden input for rename. */
+    
     .filename-label {
       display: inline-block;
-      padding-right: 3px; /* space before extension */
+      padding-right: 3px; 
       cursor: text;
     }
     .filename-input {
-      display: none; /* hidden by default, shown on double-click */
+      display: none; 
       width: 150px;
       border: 1px solid #ccc;
       border-radius: 3px;
@@ -231,7 +231,7 @@
       color: #333;
     }
 
-    /* Run button (far right) */
+    
     .topbar button {
       background-color: #fff;
       border: 1px solid #ccc;
@@ -243,7 +243,7 @@
       background-color: #e9e9e9;
     }
 
-    /* Editor container */
+    
     .editor-container {
       flex: 1;
       display: flex;
@@ -255,7 +255,7 @@
       height: 100%;
     }
 
-    /* Status bar */
+    
     .status-bar {
       height: 24px;
       background-color: #e0e0e0;
@@ -271,26 +271,26 @@
 
 <body>
 
-  <!-- SIDEBAR -->
+  
   <div class="sidebar">
     <div class="sidebar-top">
-      <!-- Search bar -->
+      
       <div class="sidebar-search">
         <input type="search" placeholder="Search..." />
       </div>
 
-      <!-- "New" button (full width) -->
+      
       <button id="btnNew">New</button>
 
-      <!-- Load/Save row -->
+      
       <div class="load-save-row">
         <button id="btnLoad">Load</button>
         <button id="btnSave">Save</button>
       </div>
 
-      <!-- Tabs list -->
+      
       <div class="tabs-container" id="tabsContainer">
-        <!-- Dynamically populated with open file tabs -->
+        
       </div>
     </div>
 
@@ -300,22 +300,22 @@
     </div>
   </div>
 
-  <!-- MAIN SECTION (top bar + editor + status bar) -->
+  
   <div class="main-section">
 
-    <!-- Top bar -->
+    
     <div class="topbar">
       <div class="file-info">
-        <!-- Label (double-click to rename) -->
+        
         <span class="filename-label" id="filenameBaseLabel">untitled</span>
-        <!-- Input (hidden by default, for renaming) -->
+        
         <input
           type="text"
           class="filename-input"
           id="filenameBaseInput"
           value="untitled"
         />
-        <!-- Extension dropdown (styled like text) -->
+        
         <select id="filenameExt" class="filename-ext">
           <option value="txt">.txt</option>
           <option value="html">.html</option>
@@ -328,19 +328,19 @@
       <button id="btnRun">Run</button>
     </div>
 
-    <!-- Editor area -->
+    
     <div class="editor-container">
       <textarea id="codeEditor"></textarea>
     </div>
 
-    <!-- Status bar -->
+    
     <div class="status-bar">
       <div id="statusText">Line 1, Col 1</div>
       <div id="statusEncoding">UTF-8 | Windows (CR LF)</div>
     </div>
   </div>
 
-  <!-- Hidden file input for loading local files -->
+  
   <input
     type="file"
     id="fileInput"
@@ -348,9 +348,9 @@
     style="display: none"
   />
 
-  <!-- CodeMirror core JS -->
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.js"></script>
-  <!-- Language modes -->
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/javascript/javascript.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/css/css.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/htmlmixed/htmlmixed.min.js"></script>
@@ -359,20 +359,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/php/php.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/python/python.min.js"></script>
 
-  <!-- ADDONS for Autocomplete & Auto-Close -->
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/edit/closetag.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/xml-hint.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/html-hint.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/css-hint.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/javascript-hint.min.js"></script>
-  <!-- Optionally, anyword-hint or others if you want general word completions -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/anyword-hint.min.js"></script> -->
+  
+  
 
   <script>
-    /************************************************************
-     *             MULTI-TAB DATA STRUCTURE & LOGIC
-     ************************************************************/
+    
     let tabs = [];
     let currentTabId = null;
 
@@ -391,7 +389,7 @@
     }
 
     function createNewTab(baseName = 'untitled', extension = 'txt', content = '') {
-      const newId = Date.now(); // simple unique ID
+      const newId = Date.now(); 
       tabs.push({ id: newId, name: baseName, extension, content });
       return newId;
     }
@@ -405,42 +403,42 @@
         tabEl.className = 'tab-item' + (tab.id === currentTabId ? ' active' : '');
         tabEl.setAttribute('data-id', tab.id);
 
-        // Title span
+        
         const titleSpan = document.createElement('span');
         titleSpan.className = 'tab-title';
         titleSpan.textContent = tab.name + '.' + tab.extension;
         tabEl.appendChild(titleSpan);
 
-        // Hidden input for rename
+        
         const renameInput = document.createElement('input');
         renameInput.type = 'text';
         renameInput.className = 'tab-rename-input';
         renameInput.value = tab.name;
         tabEl.appendChild(renameInput);
 
-        // Close button (X)
+        
         const closeSpan = document.createElement('span');
         closeSpan.className = 'tab-close';
         closeSpan.textContent = 'x';
         tabEl.appendChild(closeSpan);
 
-        // Switch tab on single-click
+        
         tabEl.addEventListener('click', (e) => {
-          if (e.target === closeSpan) return; // avoid switching if closing
+          if (e.target === closeSpan) return; 
           switchToTab(tab.id);
         });
-        // Rename on double-click
+        
         titleSpan.addEventListener('dblclick', (e) => {
           e.stopPropagation();
           startTabRename(tab.id, tabEl);
         });
-        // Close on X
+        
         closeSpan.addEventListener('click', (e) => {
           e.stopPropagation();
           closeTab(tab.id);
         });
 
-        // Rename input events
+        
         renameInput.addEventListener('blur', () => {
           finishTabRename(tab.id, renameInput.value);
         });
@@ -470,7 +468,7 @@
       newName = newName.trim() || 'untitled';
       tab.name = newName;
       renderTabs();
-      // If the renamed tab is the current one, update top bar label
+      
       if (tabId === currentTabId) {
         filenameBaseLabel.textContent = tab.name;
         filenameBaseInput.value = tab.name;
@@ -483,11 +481,11 @@
       tabs.splice(index, 1);
 
       if (tabId === currentTabId) {
-        // Switch to another tab if any left
+        
         if (tabs.length > 0) {
           switchToTab(tabs[tabs.length - 1].id);
         } else {
-          // No tabs -> create a blank new one
+          
           currentTabId = null;
           const newTabId = createNewTab();
           switchToTab(newTabId);
@@ -498,7 +496,7 @@
     }
 
     function switchToTab(tabId) {
-      // Save current tab's content first
+      
       if (currentTabId !== null) {
         const currentTab = tabs.find(t => t.id === currentTabId);
         if (currentTab) {
@@ -520,24 +518,22 @@
       renderTabs();
     }
 
-    /************************************************************
-     *                    CODEMIRROR SETUP
-     ************************************************************/
+    
     const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
       lineNumbers: true,
       mode: 'plaintext',
       theme: 'eclipse',
       tabSize: 2,
       indentUnit: 2,
-      // AUTO-CLOSING TAGS
+      
       autoCloseTags: true, 
-      // For bracket pairs (optional): autoCloseBrackets: true, // if you load "addon/edit/closebrackets.js"
-      // AUTOCOMPLETE:
+      
+      
       extraKeys: {
-        // Trigger autocomplete manually
+        
         'Ctrl-Space': 'autocomplete',
-        // Make Tab accept the autocomplete suggestion if one is active,
-        // otherwise insert a normal tab character:
+        
+        
         'Tab': function(cm) {
           let completion = cm.state.completionActive;
           if (completion) {
@@ -549,24 +545,22 @@
       }
     });
 
-    // Show suggestions automatically on user input
+    
     editor.on('inputRead', function(cm, change) {
-      // If it's a single character insertion (not a delete, paste, etc.)
+      
       if (change.text && change.text[0].length === 1) {
         CodeMirror.commands.autocomplete(cm, null, { completeSingle: false });
       }
     });
 
-    // Status bar: update line/col
+    
     const statusText = document.getElementById('statusText');
     editor.on('cursorActivity', function() {
       const pos = editor.getCursor();
       statusText.textContent = `Line ${pos.line + 1}, Col ${pos.ch + 1}`;
     });
 
-    /************************************************************
-     *                  UI ELEMENTS REFERENCES
-     ************************************************************/
+    
     const btnNew = document.getElementById('btnNew');
     const btnLoad = document.getElementById('btnLoad');
     const btnSave = document.getElementById('btnSave');
@@ -577,9 +571,7 @@
     const filenameBaseInput = document.getElementById('filenameBaseInput');
     const filenameExt = document.getElementById('filenameExt');
 
-    /************************************************************
-     *        RENAME LOGIC (TOP BAR) - double-click label
-     ************************************************************/
+    
     filenameBaseLabel.addEventListener('dblclick', () => {
       filenameBaseLabel.style.display = 'none';
       filenameBaseInput.style.display = 'inline-block';
@@ -609,7 +601,7 @@
       }
     }
 
-    // On extension change, update the mode + tab data
+    
     filenameExt.addEventListener('change', () => {
       if (currentTabId === null) return;
       const currentTab = tabs.find(t => t.id === currentTabId);
@@ -620,18 +612,16 @@
       }
     });
 
-    /************************************************************
-     *                    BUTTON HANDLERS
-     ************************************************************/
+    
     function createAndSwitchToNewTab() {
       const newTabId = createNewTab();
       switchToTab(newTabId);
     }
 
-    // NEW
+    
     btnNew.addEventListener('click', createAndSwitchToNewTab);
 
-    // LOAD
+    
     btnLoad.addEventListener('click', () => {
       fileInput.click();
     });
@@ -647,10 +637,10 @@
         switchToTab(newTabId);
       };
       reader.readAsText(file);
-      this.value = ''; // reset for next open
+      this.value = ''; 
     });
 
-    // SAVE
+    
     btnSave.addEventListener('click', saveFile);
     function saveFile() {
       if (currentTabId === null) return;
@@ -671,11 +661,11 @@
       URL.revokeObjectURL(tempLink.href);
     }
 
-    // RUN
+    
     btnRun.addEventListener("click", function() {
   var codeContent = editor.getValue();
 
-  // Open a new mini window (e.g., 600x400)
+  
   var newWindow = window.open("", "miniWindow", "width=600,height=400,resizable=yes");
 
   if (newWindow) {
@@ -687,9 +677,7 @@
 });
 
 
-    /************************************************************
-     *   KEYBOARD SHORTCUTS (Ctrl+S, Ctrl+O, Ctrl+N) 
-     ************************************************************/
+    
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
         e.preventDefault();
@@ -703,9 +691,7 @@
       }
     });
 
-    /************************************************************
-     *          INIT: Create an initial tab and display it
-     ************************************************************/
+    
     (function init() {
       const initialTabId = createNewTab('untitled', 'txt', '');
       switchToTab(initialTabId);
