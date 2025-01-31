@@ -523,29 +523,25 @@
   lineNumbers: true,
   mode: 'plaintext',
   theme: 'eclipse',
-  tabSize: 2,
-  indentUnit: 2,
-
+  tabSize: 4,
+  indentUnit: 4,
   autoCloseTags: true, 
-
   extraKeys: {
     'Ctrl-Space': 'autocomplete',
 
+    // Multi-line indent with Tab
     'Tab': function(cm) {
-      let completion = cm.state.completionActive;
-      if (completion) {
-        completion.widget.pick();
+      if (cm.somethingSelected()) {
+        cm.indentSelection('add'); 
       } else {
         cm.replaceSelection('\t');
       }
     },
 
-    'Enter': function(cm) {
-      let completion = cm.state.completionActive;
-      if (completion) {
-        return CodeMirror.Pass;  // Let CodeMirror handle it
-      } else {
-        cm.replaceSelection('\n');  // Insert a newline normally
+    // Multi-line outdent with Shift+Tab
+    'Shift-Tab': function(cm) {
+      if (cm.somethingSelected()) {
+        cm.indentSelection('subtract');
       }
     }
   }
