@@ -520,30 +520,37 @@
 
     
     const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
-      lineNumbers: true,
-      mode: 'plaintext',
-      theme: 'eclipse',
-      tabSize: 2,
-      indentUnit: 2,
-      
-      autoCloseTags: true, 
-      
-      
-      extraKeys: {
-        
-        'Ctrl-Space': 'autocomplete',
-        
-        
-        'Tab': function(cm) {
-          let completion = cm.state.completionActive;
-          if (completion) {
-            completion.widget.pick();
-          } else {
-            cm.replaceSelection('\t');
-          }
-        }
+  lineNumbers: true,
+  mode: 'plaintext',
+  theme: 'eclipse',
+  tabSize: 2,
+  indentUnit: 2,
+
+  autoCloseTags: true, 
+
+  extraKeys: {
+    'Ctrl-Space': 'autocomplete',
+
+    'Tab': function(cm) {
+      let completion = cm.state.completionActive;
+      if (completion) {
+        completion.widget.pick();
+      } else {
+        cm.replaceSelection('\t');
       }
-    });
+    },
+
+    'Enter': function(cm) {
+      let completion = cm.state.completionActive;
+      if (completion) {
+        return CodeMirror.Pass;  // Let CodeMirror handle it
+      } else {
+        cm.replaceSelection('\n');  // Insert a newline normally
+      }
+    }
+  }
+});
+
 
     
     editor.on('inputRead', function(cm, change) {
