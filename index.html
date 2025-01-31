@@ -700,5 +700,11 @@
       switchToTab(initialTabId);
     })();
   </script>
+  <script>
+    window.addEventListener("beforeunload", (event) => {
+    event.preventDefault(); 
+    event.returnValue = ""; // Required for modern browsers
+});
+  </script>
 </body>
 </html>
