@@ -1,12 +1,15 @@
-This is an IDE im working on using codemirror
-its based on the text editor for chromebooks and Notepad++
+this is my first public website after a while of practicing 
+This is a simple online IDE im working on using codemirror 
 
-⚠⚠⚠ only HTML currently works and will just output your text if you try run other languages
+to change language or file name click the title on the top double click the name to change it or click the extention to change it 
 
-planned features:
-  complete customisable theme, background, font, etc
-  local storage draft saving
-  custom tab sizing  
-  enable/diable syntax highlights settings
-  folders
-  sourcing from other tabs when running tests
+repair fixes indentaion currently and in future will fix simple syntax errors
+run currently only runs html files im working on getting other languages to run
+
+the "UTF-8 | Windows (CR LF)" currently means nothing and doesent update
+
+future updates:
+tab linking will allow you to link content e.g "<img src="./image.png">" linking to another open tab
+extentions allow you to add custom functions, buttons, ui, languages
+settings will allow you to customise complete theming background, font, color etc
+ui overhall, icons, themes etc
