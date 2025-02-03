@@ -9,7 +9,7 @@ run currently only runs html files im working on getting other languages to run
 the "UTF-8 | Windows (CR LF)" currently means nothing and doesent update
 
 future updates:
-tab linking will allow you to link content e.g "<img src="./image.png">" linking to another open tab
+tab linking will allow you to link content e.g "<img (src)="./image.png">" linking to another open tab
 extentions allow you to add custom functions, buttons, ui, languages
 settings will allow you to customise complete theming background, font, color etc
 ui overhall, icons, themes etc
