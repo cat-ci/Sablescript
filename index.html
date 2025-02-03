@@ -816,19 +816,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.querySelector(".sidebar");
     const toggleButton = document.getElementById("sidebar"); 
     const copyButton = document.getElementById("copy");
-    
-    let sidebarVisible = true; // Sidebar starts visible by default
+    const repairButton = document.getElementById("repair");
 
-    // Sidebar toggle functionality
+    let sidebarVisible = true; 
+
     toggleButton.addEventListener("click", function () {
         sidebarVisible = !sidebarVisible;
         sidebar.style.display = sidebarVisible ? "flex" : "none";
     });
 
-    // Copy button functionality
     copyButton.addEventListener("click", function () {
         if (!editor) return;
-        
+
         const currentContent = editor.getValue();
         
         navigator.clipboard.writeText(currentContent).then(() => {
@@ -836,7 +835,29 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Failed to copy: ", err);
         });
     });
+
+    repairButton.addEventListener("click", function () {
+        if (!editor) return;
+
+        editor.operation(() => {
+            let lines = [];
+            for (let i = 0; i < editor.lineCount(); i++) {
+                let line = editor.getLine(i).trim();
+                lines.push(line);
+            }
+
+            let formattedCode = lines.join("\n");
+
+            editor.replaceRange(formattedCode, { line: 0, ch: 0 }, { line: editor.lineCount(), ch: 0 });
+
+            for (let i = 0; i < editor.lineCount(); i++) {
+                editor.indentLine(i, "smart");
+            }
+        });
+
+    });
 });
+
 
     </script>
 </body>
