@@ -347,6 +347,7 @@
       <div class="functions">
           <button id="sidebar">Sidebar</button>
           <button id="copy">Copy</button>
+          <button id="repair">Repair</button>
         </div>
       <div class="file-info">
         
@@ -808,25 +809,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     showGroup(select.value);
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.querySelector(".sidebar");
-    const toggleButton = document.querySelector(".topbar .functions button"); 
-
-    // Track sidebar visibility state
-    let sidebarVisible = true; // Sidebar starts visible by default
-
-    toggleButton.addEventListener("click", function () {
-        sidebarVisible = !sidebarVisible; // Toggle state
-
-        if (sidebarVisible) {
-            sidebar.style.display = "flex"; 
-        } else {
-            sidebar.style.display = "none"; 
-        }
-    });
 });
 </script>
     <script>
