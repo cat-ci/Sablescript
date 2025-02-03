@@ -629,11 +629,17 @@
 
 
             editor.on('inputRead', function(cm, change) {
+                if (cm.getOption('mode') !== 'htmlmixed') return; // Only apply this behavior to HTML mode
 
-                if (change.text && change.text[0].length === 1) {
+                let cursor = cm.getCursor();
+                let token = cm.getTokenAt(cursor);
+
+                // Check if the user just typed '<' or is inside an HTML tag
+                if (change.text[0] === '<' || token.type === 'tag' || token.type === 'attribute') {
                     CodeMirror.commands.autocomplete(cm, null, { completeSingle: false });
                 }
             });
+
 
 
             const statusText = document.getElementById('statusText');
@@ -881,6 +887,7 @@
 
 
         </script>
+
         <script>
             function updateEditorWidth() {
                 const editorContainer = document.querySelector(".editor-container");
