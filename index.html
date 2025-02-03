@@ -23,6 +23,38 @@
   />
 <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/cat-ci/Sablescript/refs/heads/main/.github/sablescript.ico">
   <style>
+   	.btn-group {
+        display: none;
+        flex-wrap: wrap;
+    }
+
+    button {
+        border: 1px solid #ccc;
+        padding:4px 8px;
+        background: #f8f8f8;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background: #ddd;
+    }
+
+    .tab {
+        border: 1px solid #999;
+        background: #e0e0e0;
+        cursor: pointer;
+        padding:2px;
+        border-radius: 0;
+        border-top-left-radius:5px;
+        border-top-right-radius:5px;
+    }
+
+    .tab.active {
+        background: #bbb;
+    } 
+   </style>
+   <style>
     
     * {
       margin: 0;
@@ -267,6 +299,7 @@
       padding: 0 10px;
       font-size: 13px;
     }
+    
   </style>
 </head>
 
@@ -334,7 +367,29 @@
       <textarea id="codeEditor"></textarea>
     </div>
 
-    
+    <div class="toolbar-container">
+        <div class="toolbar-quickbar">
+                    <!-- Tabs for HTML, CSS, JS -->
+            <div id="tabContainer" class="tabs" style="display: none;">
+                <button class="tab" data-tab="html">HTML</button>
+                <button class="tab" data-tab="css">CSS</button>
+                <button class="tab" data-tab="js">JS</button>
+            </div>
+            <div class="syntax">
+                <div class="container">
+                    <!-- Buttons for different languages -->
+                    <div class="buttons">
+                        <div class="btn-group txt"><button>.txt</button><button>#</button><button>*</button><button>-</button></div>
+                        <div class="btn-group html"><button>&lt;</button><button>&gt;</button><button>/</button><button>:</button></div>
+                        <div class="btn-group css"><button>{ }</button><button>;</button><button>color</button><button>display: flex;</button></div>
+                        <div class="btn-group js"><button>()</button><button>{ }</button><button>function()</button><button>document.querySelector()</button></div>
+                        <div class="btn-group py"><button>def</button><button>print()</button><button>#</button><button>import</button></div>
+                        <div class="btn-group php"><button>&lt;?php</button><button>echo</button><button>$var</button><button>$_POST</button></div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+     </div>
     <div class="status-bar">
       <div id="statusText">Line 1, Col 1</div>
       <div id="statusEncoding">UTF-8 | Windows (CR LF)</div>
@@ -707,5 +762,44 @@
     event.returnValue = ""; // Required for modern browsers
 });
   </script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const select = document.getElementById("filenameExt");
+    const tabContainer = document.getElementById("tabContainer");
+    const tabs = document.querySelectorAll(".tab");
+    const groups = document.querySelectorAll(".btn-group");
+
+    function showGroup(groupName) {
+        groups.forEach(group => {
+            group.style.display = "none"; 
+        });
+
+        if (groupName === "html") {
+            tabContainer.style.display = "block";
+            document.querySelector(".btn-group.html").style.display = "flex";
+        } else {
+            tabContainer.style.display = "none";
+            const activeGroup = document.querySelector(`.btn-group.${groupName}`);
+            if (activeGroup) activeGroup.style.display = "flex";
+        }
+    }
+
+    select.addEventListener("change", function () {
+        showGroup(this.value);
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", function () {
+            tabs.forEach(t => t.classList.remove("active"));
+            this.classList.add("active");
+
+            groups.forEach(group => group.style.display = "none");
+            document.querySelector(`.btn-group.${this.dataset.tab}`).style.display = "flex";
+        });
+    });
+
+    showGroup(select.value);
+});
+</script>
 </body>
 </html>
