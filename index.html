@@ -173,7 +173,6 @@
                 display: inline-block;
             }
 
-
             .tab-rename-input {
                 display: none;
                 width: calc(100% - 26px);
@@ -181,7 +180,6 @@
                 border-radius: 3px;
                 padding: 2px 4px;
             }
-
 
             .tab-close {
                 position: absolute;
@@ -629,16 +627,59 @@
 
 
             editor.on('inputRead', function(cm, change) {
-                if (cm.getOption('mode') !== 'htmlmixed') return; // Only apply this behavior to HTML mode
-
+                let mode = cm.getOption('mode');
                 let cursor = cm.getCursor();
                 let token = cm.getTokenAt(cursor);
+                let shouldAutocomplete = false;
 
-                // Check if the user just typed '<' or is inside an HTML tag
-                if (change.text[0] === '<' || token.type === 'tag' || token.type === 'attribute') {
+                if (mode === 'htmlmixed') {
+                    // HTML: Only autocomplete when starting a tag (`<`) or inside a tag/attribute
+                    if (change.text[0] === '<' || token.type === 'tag' || token.type === 'attribute') {
+                        shouldAutocomplete = true;
+                    }
+
+                    // Enable JS autocomplete inside <script> tags
+                    if (token.state.context && token.state.context.tagName === "script") {
+                        cm.setOption("mode", "javascript");
+                        shouldAutocomplete = true;
+                    }
+
+                    // Enable CSS autocomplete inside <style> tags
+                    if (token.state.context && token.state.context.tagName === "style") {
+                        cm.setOption("mode", "css");
+                        shouldAutocomplete = true;
+                    }
+                }
+                else if (mode === 'javascript') {
+                    // JS: Autocomplete when typing variable names, function names, or dots (`.`)
+                    if (/\w|\./.test(change.text[0])) {
+                        shouldAutocomplete = true;
+                    }
+                }
+                else if (mode === 'css') {
+                    // CSS: Autocomplete for properties and values when typing inside `{ }`
+                    if (token.type === 'property' || token.type === 'variable-3' || token.type === 'keyword' || change.text[0] === ':') {
+                        shouldAutocomplete = true;
+                    }
+                }
+                else if (mode === 'python') {
+                    // Python: Autocomplete for function names, imports, and dots (`.`)
+                    if (/\w|\./.test(change.text[0])) {
+                        shouldAutocomplete = true;
+                    }
+                }
+                else if (mode === 'php') {
+                    // PHP: Autocomplete when inside `<?php ?>` blocks
+                    if (token.type === 'variable' || change.text[0] === '$' || token.type === 'keyword') {
+                        shouldAutocomplete = true;
+                    }
+                }
+
+                if (shouldAutocomplete) {
                     CodeMirror.commands.autocomplete(cm, null, { completeSingle: false });
                 }
             });
+
 
 
 
