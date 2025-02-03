@@ -1,864 +1,912 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Sablescript</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap" rel="stylesheet">
-  
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.css"
-  />
-  
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/theme/eclipse.min.css"
-  />
+    <head>
+        <meta charset="UTF-8">
+        <title>Sablescript</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap" rel="stylesheet">
 
-  
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.css"
-  />
-<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/cat-ci/Sablescript/refs/heads/main/.github/sablescript.ico">
-  <style>
-   	.btn-group {
-        display: none;
-        flex-wrap: wrap;
-    }
+        <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.css"
+              />
 
-    button {
-        border: 1px solid #ccc;
-        padding:4px 8px;
-        background: #f8f8f8;
-        cursor: pointer;
-        border-radius: 5px;
-    }
+        <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/theme/eclipse.min.css"
+              />
 
-    button:hover {
-        background: #ddd;
-    }
 
-    .tab {
-        border: 1px solid #999;
-        background: #e0e0e0;
-        cursor: pointer;
-        padding:2px;
-        border-radius: 0;
-        border-top-left-radius:5px;
-        border-top-right-radius:5px;
-    }
+        <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.css"
+              />
+        <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/cat-ci/Sablescript/refs/heads/main/.github/sablescript.ico">
+        <style>
+            .btn-group {
+                display: none;
+                flex-wrap: wrap;
+            }
 
-    .tab.active {
-        background: #bbb;
-    } 
-   </style>
-   <style>
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-    html, body {
-      height: 100%;
-      background: #f0f0f0;
-    }
-    body {
-      display: flex; 
-      flex-direction: row;
-    }
+            button {
+                border: 1px solid #ccc;
+                padding:4px 8px;
+                background: #f8f8f8;
+                cursor: pointer;
+                border-radius: 5px;
+            }
 
-    
-    .sidebar {
-      width: 200px;
-      background-color: #fafafa;
-      border-right: 1px solid #ccc;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between; 
-    }
+            button:hover {
+                background: #ddd;
+            }
 
-    
-    .sidebar-top {
-      display: flex;
-      flex-direction: column;
-      padding: 8px;
-    }
+            .tab {
+                border: 1px solid #999;
+                background: #e0e0e0;
+                cursor: pointer;
+                padding:2px;
+                border-radius: 0;
+                border-top-left-radius:5px;
+                border-top-right-radius:5px;
+            }
 
-    
-    .sidebar-search {
-      margin-bottom: 8px;
-    }
-    .sidebar-search input {
-      width: 100%;
-      padding: 4px 6px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
+            .tab.active {
+                background: #bbb;
+            }
+        </style>
+        <style>
 
-    
-    #btnNew {
-      width: 100%;
-      margin-bottom: 8px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 6px;
-      cursor: pointer;
-      font-weight:800;
-    }
-    #btnNew:hover {
-      background-color: #e9e9e9;
-    }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Arial, sans-serif;
+            }
+            html, body {
+                height: 100%;
+                background: #f0f0f0;
+                overflow-x:hidden;
+            }
+            body {
+                display: flex;
+                flex-direction: row;
+            }
 
-    
-    .load-save-row {
-      display: flex;
-      flex-direction: row;
-      margin-bottom: 8px;
-    }
-    .load-save-row button {
-      flex: 1;
-      margin-right: 4px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 6px;
-      cursor: pointer;
-      font-family:Noto Emoji;
-      
-    }
-    .load-save-row button:last-child {
-      margin-right: 0;
-    }
-    .load-save-row button:hover {
-      background-color: #e9e9e9;
-    }
+            .sidebar {
+                width: 200px;
+                background-color: #fafafa;
+                border-right: 1px solid #ccc;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
 
-    
-    .tabs-container {
-      background-color: #fff;
-      border: 1px solid #ccc;
-      min-height: 100px; 
-      border-radius: 3px;
-      overflow-y: auto;
-      padding: 4px;
-    }
-    .tab-item {
-      position: relative; 
-      padding: 4px 6px;
-      margin-bottom: 4px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      cursor: pointer;
-      background-color: #f9f9f9;
-      color: #333;
-      user-select: none;
-    }
-    .tab-item:hover {
-      background-color: #e2e2e2;
-    }
-    .tab-item.active {
-      background-color: #c9e2ff;
-      border-color: #66aaff;
-    }
 
-    
-    .tab-title {
-      display: inline-block;
-    }
+            .sidebar-top {
+                display: flex;
+                flex-direction: column;
+                padding: 8px;
+            }
 
-    
-    .tab-rename-input {
-      display: none;
-      width: calc(100% - 26px); 
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 2px 4px;
-    }
 
-    
-    .tab-close {
-      position: absolute;
-      right: 4px;
-      top: 4px;
-      display: none; 
-      cursor: pointer;
-      font-weight: bold;
-      color: #777;
-    }
-    .tab-item:hover .tab-close {
-      display: inline;
-    }
-    .tab-close:hover {
-      color: red;
-    }
+            .sidebar-search {
+                margin-bottom: 8px;
+            }
+            .sidebar-search input {
+                width: 100%;
+                padding: 4px 6px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
 
-    
-    .sidebar-bottom {
-      padding: 8px;
-      display: flex;
-      justify-content: space-between;
-      border-top: 1px solid #ccc;
-    }
-    .sidebar-bottom button {
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 4px 6px;
-      cursor: pointer;
-      font-size: 12px;
-    }
-    .sidebar-bottom button:hover {
-      background-color: #e9e9e9;
-    }
 
-    
-    .main-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
+            #btnNew {
+                width: 100%;
+                margin-bottom: 8px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 6px;
+                cursor: pointer;
+                font-weight:800;
+            }
+            #btnNew:hover {
+                background-color: #e9e9e9;
+            }
 
-    
-    .topbar {
-      display: flex;
-      align-items: center;
-      background-color: #f5f5f5;
-      border-bottom: 1px solid #ccc;
-      min-height: 40px;
-      padding: 0 10px;
-    }
-    
-    .file-info {
-      flex: 1;
-      text-align: center; 
-      position: relative;
-      user-select: none;
-    }
 
-    
-    .filename-label {
-      display: inline-block;
-      padding-right: 3px; 
-      cursor: text;
-    }
-    .filename-input {
-      display: none; 
-      width: 150px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 2px 4px;
-      text-align: right;
-      margin-right: 3px;
-    }
-    .filename-ext {
-      appearance: none; 
-      border: none;
-      background: transparent;
-      font-family: inherit;
-      font-size: inherit;
-      cursor: pointer;
-    }
-    .filename-ext option {
-      color: #333;
-    }
+            .load-save-row {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 8px;
+            }
+            .load-save-row button {
+                flex: 1;
+                margin-right: 4px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 6px;
+                cursor: pointer;
+                font-family:Noto Emoji;
 
-    
-    .topbar button {
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 6px 12px;
-      cursor: pointer;
-    }
-    .topbar button:hover {
-      background-color: #e9e9e9;
-    }
+            }
+            .load-save-row button:last-child {
+                margin-right: 0;
+            }
+            .load-save-row button:hover {
+                background-color: #e9e9e9;
+            }
 
-    
-    .editor-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .CodeMirror {
-      flex: 1;
-      height: 100%;
-    }
 
-    
-    .status-bar {
-      height: 24px;
-      background-color: #e0e0e0;
-      border-top: 1px solid #ccc;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 10px;
-      font-size: 13px;
-    }
-    
-  </style>
-</head>
+            .tabs-container {
+                background-color: #fff;
+                border: 1px solid #ccc;
+                min-height: 100px;
+                border-radius: 3px;
+                overflow-y: auto;
+                padding: 4px;
+            }
+            .tab-item {
+                position: relative;
+                padding: 4px 6px;
+                margin-bottom: 4px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                cursor: pointer;
+                background-color: #f9f9f9;
+                color: #333;
+                user-select: none;
+            }
+            .tab-item:hover {
+                background-color: #e2e2e2;
+            }
+            .tab-item.active {
+                background-color: #c9e2ff;
+                border-color: #66aaff;
+            }
 
-<body>
 
-  
-  <div class="sidebar">
-    <div class="sidebar-top">
-      
-      <div class="sidebar-search">
-        <input type="search" placeholder="Search..." />
-      </div>
+            .tab-title {
+                display: inline-block;
+            }
 
-      
-      <button id="btnNew">+</button>
 
-      
-      <div class="load-save-row">
-        <button id="btnLoad">📂</button>
-        <button id="btnSave">💾</button>
-      </div>
+            .tab-rename-input {
+                display: none;
+                width: calc(100% - 26px);
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 2px 4px;
+            }
 
-      
-      <div class="tabs-container" id="tabsContainer">
-        
-      </div>
-    </div>
 
-    <div class="sidebar-bottom">
-      <button id="btnExtensions">Ext</button>
-      <button id="btnSettings">Settings</button>
-    </div>
-  </div>
+            .tab-close {
+                position: absolute;
+                right: 4px;
+                top: 4px;
+                display: none;
+                cursor: pointer;
+                font-weight: bold;
+                color: #777;
+            }
+            .tab-item:hover .tab-close {
+                display: inline;
+            }
+            .tab-close:hover {
+                color: red;
+            }
 
-  
-  <div class="main-section">
 
-    
-    <div class="topbar">
-      <div class="functions">
-          <button id="sidebar">Sidebar</button>
-          <button id="copy">Copy</button>
-          <button id="repair">Repair</button>
-        </div>
-      <div class="file-info">
-        
-        <span class="filename-label" id="filenameBaseLabel">untitled</span>
-        
-        <input
-          type="text"
-          class="filename-input"
-          id="filenameBaseInput"
-          value="untitled"
-        />
-        
-        <select id="filenameExt" class="filename-ext">
-          <option value="txt">.txt</option>
-          <option value="html">.html</option>
-          <option value="css">.css</option>
-          <option value="js">.js</option>
-          <option value="py">.py</option>
-          <option value="php">.php</option>
-        </select>
-      </div>
-      <button id="btnRun">Run</button>
-    </div>
+            .sidebar-bottom {
+                padding: 8px;
+                display: flex;
+                justify-content: space-between;
+                border-top: 1px solid #ccc;
+            }
+            .sidebar-bottom button {
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 4px 6px;
+                cursor: pointer;
+                font-size: 12px;
+            }
+            .sidebar-bottom button:hover {
+                background-color: #e9e9e9;
+            }
 
-    
-    <div class="editor-container">
-      <textarea id="codeEditor"></textarea>
-    </div>
 
-    <div class="toolbar-container">
-        <div class="toolbar-quickbar">
-                    <!-- Tabs for HTML, CSS, JS -->
-            <div id="tabContainer" class="tabs" style="display: none;">
-                <button class="tab" data-tab="html">HTML</button>
-                <button class="tab" data-tab="css">CSS</button>
-                <button class="tab" data-tab="js">JS</button>
+            .main-section {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+
+            .topbar {
+                display: flex;
+                align-items: center;
+                background-color: #f5f5f5;
+                border-bottom: 1px solid #ccc;
+                min-height: 40px;
+                padding: 0 10px;
+            }
+
+            .file-info {
+                flex: 1;
+                text-align: center;
+                position: relative;
+                user-select: none;
+            }
+
+
+            .filename-label {
+                display: inline-block;
+                padding-right: 3px;
+                cursor: text;
+            }
+            .filename-input {
+                display: none;
+                width: 150px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 2px 4px;
+                text-align: right;
+                margin-right: 3px;
+            }
+            .filename-ext {
+                appearance: none;
+                border: none;
+                background: transparent;
+                font-family: inherit;
+                font-size: inherit;
+                cursor: pointer;
+            }
+            .filename-ext option {
+                color: #333;
+            }
+
+
+            .topbar button {
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 6px 12px;
+                cursor: pointer;
+            }
+            .topbar button:hover {
+                background-color: #e9e9e9;
+            }
+
+
+            .editor-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden; /* Hide default overflow */
+            }
+
+            .CodeMirror {
+                height: 100%;
+            }
+
+            .CodeMirror-wrap {
+                overflow-x: auto;  /* Enable horizontal scrolling */
+                overflow-y: hidden; /* Prevent vertical overflow */
+                white-space: pre;   /* Prevent text wrapping */
+            }
+
+            .CodeMirror-scroll {
+                min-width: 100%;
+                overflow-x: auto !important; /* Force horizontal scrolling */
+            }
+
+
+
+
+            .status-bar {
+                height: 24px;
+                background-color: #e0e0e0;
+                border-top: 1px solid #ccc;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 10px;
+                font-size: 13px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+
+        <div class="sidebar">
+            <div class="sidebar-top">
+
+                <div class="sidebar-search">
+                    <input type="search" placeholder="Search..." />
+                </div>
+
+
+                <button id="btnNew">+</button>
+
+
+                <div class="load-save-row">
+                    <button id="btnLoad">📂</button>
+                    <button id="btnSave">💾</button>
+                </div>
+
+
+                <div class="tabs-container" id="tabsContainer">
+
+                </div>
             </div>
-            <div class="syntax">
-                <div class="container">
-                    <!-- Buttons for different languages -->
-                    <div class="buttons">
-                        <div class="btn-group txt"><button>.txt</button><button>#</button><button>*</button><button>-</button></div>
-                        <div class="btn-group html"><button>&lt;</button><button>&gt;</button><button>/</button><button>:</button></div>
-                        <div class="btn-group css"><button>{ }</button><button>;</button><button>color</button><button>display: flex;</button></div>
-                        <div class="btn-group js"><button>()</button><button>{ }</button><button>function()</button><button>document.querySelector()</button></div>
-                        <div class="btn-group py"><button>def</button><button>print()</button><button>#</button><button>import</button></div>
-                        <div class="btn-group php"><button>&lt;?php</button><button>echo</button><button>$var</button><button>$_POST</button></div>
+
+            <div class="sidebar-bottom">
+                <button id="btnExtensions">Ext</button>
+                <button id="btnSettings">Settings</button>
+            </div>
+        </div>
+
+
+        <div class="main-section">
+
+
+            <div class="topbar">
+                <div class="functions">
+                    <button id="sidebar">Sidebar</button>
+                    <button id="copy">Copy</button>
+                    <button id="repair">Repair</button>
+                </div>
+                <div class="file-info">
+
+                    <span class="filename-label" id="filenameBaseLabel">untitled</span>
+
+                    <input
+                           type="text"
+                           class="filename-input"
+                           id="filenameBaseInput"
+                           value="untitled"
+                           />
+
+                    <select id="filenameExt" class="filename-ext">
+                        <option value="txt">.txt</option>
+                        <option value="html">.html</option>
+                        <option value="css">.css</option>
+                        <option value="js">.js</option>
+                        <option value="py">.py</option>
+                        <option value="php">.php</option>
+                    </select>
+                </div>
+                <button id="btnRun">Run</button>
+            </div>
+
+
+            <div class="editor-container">
+                <textarea id="codeEditor"></textarea>
+            </div>
+
+            <div class="toolbar-container">
+                <div class="toolbar-quickbar">
+                    <!-- Tabs for HTML, CSS, JS -->
+                    <div id="tabContainer" class="tabs" style="display: none;">
+                        <button class="tab" data-tab="html">HTML</button>
+                        <button class="tab" data-tab="css">CSS</button>
+                        <button class="tab" data-tab="js">JS</button>
+                    </div>
+                    <div class="syntax">
+                        <div class="container">
+                            <!-- Buttons for different languages -->
+                            <div class="buttons">
+                                <div class="btn-group txt"><button>.txt</button><button>#</button><button>*</button><button>-</button></div>
+                                <div class="btn-group html"><button>&lt;</button><button>&gt;</button><button>/</button><button>:</button></div>
+                                <div class="btn-group css"><button>{ }</button><button>;</button><button>color</button><button>display: flex;</button></div>
+                                <div class="btn-group js"><button>()</button><button>{ }</button><button>function()</button><button>document.querySelector()</button></div>
+                                <div class="btn-group py"><button>def</button><button>print()</button><button>#</button><button>import</button></div>
+                                <div class="btn-group php"><button>&lt;?php</button><button>echo</button><button>$var</button><button>$_POST</button></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div> 
+            </div>
+            <div class="status-bar">
+                <div id="statusText">Line 1, Col 1</div>
+                <div id="statusEncoding">UTF-8 | Windows (CR LF)</div>
+            </div>
         </div>
-     </div>
-    <div class="status-bar">
-      <div id="statusText">Line 1, Col 1</div>
-      <div id="statusEncoding">UTF-8 | Windows (CR LF)</div>
-    </div>
-  </div>
-
-  
-  <input
-    type="file"
-    id="fileInput"
-    accept=".txt,.html,.css,.js,.json,.md,.xml,.c,.cpp,.java,.py"
-    style="display: none"
-  />
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.js"></script>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/javascript/javascript.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/css/css.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/htmlmixed/htmlmixed.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/xml/xml.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/clike/clike.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/php/php.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/python/python.min.js"></script>
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/edit/closetag.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/xml-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/html-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/css-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/javascript-hint.min.js"></script>
-  
-  
-
-  <script>
-    
-    let tabs = [];
-    let currentTabId = null;
-
-    function getModeFromExtension(ext) {
-      switch (ext) {
-        case 'html': return 'htmlmixed';
-        case 'css':  return 'css';
-        case 'js':   return 'javascript';
-        case 'py':   return 'python';
-        case 'php':  return 'php';
-        case 'c':
-        case 'cpp':
-        case 'java': return 'text/x-c++src';
-        default:     return 'plaintext';
-      }
-    }
-
-    function createNewTab(baseName = 'untitled', extension = 'txt', content = '') {
-      const newId = Date.now(); 
-      tabs.push({ id: newId, name: baseName, extension, content });
-      return newId;
-    }
-
-    function renderTabs() {
-      const tabsContainer = document.getElementById('tabsContainer');
-      tabsContainer.innerHTML = '';
-
-      tabs.forEach((tab) => {
-        const tabEl = document.createElement('div');
-        tabEl.className = 'tab-item' + (tab.id === currentTabId ? ' active' : '');
-        tabEl.setAttribute('data-id', tab.id);
-
-        
-        const titleSpan = document.createElement('span');
-        titleSpan.className = 'tab-title';
-        titleSpan.textContent = tab.name + '.' + tab.extension;
-        tabEl.appendChild(titleSpan);
-
-        
-        const renameInput = document.createElement('input');
-        renameInput.type = 'text';
-        renameInput.className = 'tab-rename-input';
-        renameInput.value = tab.name;
-        tabEl.appendChild(renameInput);
-
-        
-        const closeSpan = document.createElement('span');
-        closeSpan.className = 'tab-close';
-        closeSpan.textContent = 'x';
-        tabEl.appendChild(closeSpan);
-
-        
-        tabEl.addEventListener('click', (e) => {
-          if (e.target === closeSpan) return; 
-          switchToTab(tab.id);
-        });
-        
-        titleSpan.addEventListener('dblclick', (e) => {
-          e.stopPropagation();
-          startTabRename(tab.id, tabEl);
-        });
-        
-        closeSpan.addEventListener('click', (e) => {
-          e.stopPropagation();
-          closeTab(tab.id);
-        });
-
-        
-        renameInput.addEventListener('blur', () => {
-          finishTabRename(tab.id, renameInput.value);
-        });
-        renameInput.addEventListener('keydown', (evt) => {
-          if (evt.key === 'Enter') {
-            evt.preventDefault();
-            finishTabRename(tab.id, renameInput.value);
-          }
-        });
-
-        tabsContainer.appendChild(tabEl);
-      });
-    }
-
-    function startTabRename(tabId, tabEl) {
-      const titleSpan = tabEl.querySelector('.tab-title');
-      const renameInput = tabEl.querySelector('.tab-rename-input');
-      titleSpan.style.display = 'none';
-      renameInput.style.display = 'inline-block';
-      renameInput.focus();
-      renameInput.select();
-    }
-
-    function finishTabRename(tabId, newName) {
-      const tab = tabs.find(t => t.id === tabId);
-      if (!tab) return;
-      newName = newName.trim() || 'untitled';
-      tab.name = newName;
-      renderTabs();
-      
-      if (tabId === currentTabId) {
-        filenameBaseLabel.textContent = tab.name;
-        filenameBaseInput.value = tab.name;
-      }
-    }
-
-    function closeTab(tabId) {
-      const index = tabs.findIndex(t => t.id === tabId);
-      if (index === -1) return;
-      tabs.splice(index, 1);
-
-      if (tabId === currentTabId) {
-        
-        if (tabs.length > 0) {
-          switchToTab(tabs[tabs.length - 1].id);
-        } else {
-          
-          currentTabId = null;
-          const newTabId = createNewTab();
-          switchToTab(newTabId);
-        }
-      } else {
-        renderTabs();
-      }
-    }
-
-    function switchToTab(tabId) {
-      
-      if (currentTabId !== null) {
-        const currentTab = tabs.find(t => t.id === currentTabId);
-        if (currentTab) {
-          currentTab.content = editor.getValue();
-          currentTab.name = filenameBaseInput.value.trim() || 'untitled';
-          currentTab.extension = filenameExt.value;
-        }
-      }
-      currentTabId = tabId;
-      const newTab = tabs.find(t => t.id === currentTabId);
-      if (!newTab) return;
-
-      editor.setValue(newTab.content || '');
-      editor.setOption('mode', getModeFromExtension(newTab.extension));
-      filenameBaseLabel.textContent = newTab.name;
-      filenameBaseInput.value = newTab.name;
-      filenameExt.value = newTab.extension;
-
-      renderTabs();
-    }
-
-    
-    const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
-  lineNumbers: true,
-  mode: 'plaintext',
-  theme: 'eclipse',
-  tabSize: 4,
-  indentUnit: 4,
-  autoCloseTags: true, 
-  extraKeys: {
-    'Ctrl-Space': 'autocomplete',
-
-    // Multi-line indent with Tab
-    'Tab': function(cm) {
-      if (cm.somethingSelected()) {
-        cm.indentSelection('add'); 
-      } else {
-        cm.replaceSelection('\t');
-      }
-    },
-
-    // Multi-line outdent with Shift+Tab
-    'Shift-Tab': function(cm) {
-      if (cm.somethingSelected()) {
-        cm.indentSelection('subtract');
-      }
-    }
-  }
-});
 
 
-    
-    editor.on('inputRead', function(cm, change) {
-      
-      if (change.text && change.text[0].length === 1) {
-        CodeMirror.commands.autocomplete(cm, null, { completeSingle: false });
-      }
-    });
-
-    
-    const statusText = document.getElementById('statusText');
-    editor.on('cursorActivity', function() {
-      const pos = editor.getCursor();
-      statusText.textContent = `Line ${pos.line + 1}, Col ${pos.ch + 1}`;
-    });
-
-    
-    const btnNew = document.getElementById('btnNew');
-    const btnLoad = document.getElementById('btnLoad');
-    const btnSave = document.getElementById('btnSave');
-    const btnRun = document.getElementById('btnRun');
-    const fileInput = document.getElementById('fileInput');
-
-    const filenameBaseLabel = document.getElementById('filenameBaseLabel');
-    const filenameBaseInput = document.getElementById('filenameBaseInput');
-    const filenameExt = document.getElementById('filenameExt');
-
-    
-    filenameBaseLabel.addEventListener('dblclick', () => {
-      filenameBaseLabel.style.display = 'none';
-      filenameBaseInput.style.display = 'inline-block';
-      filenameBaseInput.focus();
-      filenameBaseInput.select();
-    });
-    filenameBaseInput.addEventListener('blur', () => {
-      applyTopBarRename();
-    });
-    filenameBaseInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        applyTopBarRename();
-      }
-    });
-    function applyTopBarRename() {
-      const newName = filenameBaseInput.value.trim() || 'untitled';
-      filenameBaseLabel.textContent = newName;
-      filenameBaseInput.style.display = 'none';
-      filenameBaseLabel.style.display = 'inline-block';
-      if (currentTabId !== null) {
-        const tab = tabs.find(t => t.id === currentTabId);
-        if (tab) {
-          tab.name = newName;
-          renderTabs(); 
-        }
-      }
-    }
-
-    
-    filenameExt.addEventListener('change', () => {
-      if (currentTabId === null) return;
-      const currentTab = tabs.find(t => t.id === currentTabId);
-      if (currentTab) {
-        currentTab.extension = filenameExt.value;
-        editor.setOption('mode', getModeFromExtension(currentTab.extension));
-        renderTabs();
-      }
-    });
-
-    
-    function createAndSwitchToNewTab() {
-      const newTabId = createNewTab();
-      switchToTab(newTabId);
-    }
-
-    
-    btnNew.addEventListener('click', createAndSwitchToNewTab);
-
-    
-    btnLoad.addEventListener('click', () => {
-      fileInput.click();
-    });
-    fileInput.addEventListener('change', function() {
-      const file = this.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const parts = file.name.split('.');
-        const baseName = parts.slice(0, -1).join('.') || 'untitled';
-        const extension = parts.slice(-1)[0] || 'txt';
-        const newTabId = createNewTab(baseName, extension, e.target.result);
-        switchToTab(newTabId);
-      };
-      reader.readAsText(file);
-      this.value = ''; 
-    });
-
-    
-    btnSave.addEventListener('click', saveFile);
-    function saveFile() {
-      if (currentTabId === null) return;
-      const tab = tabs.find(t => t.id === currentTabId);
-      if (!tab) return;
-      tab.content = editor.getValue();
-      tab.name = filenameBaseInput.value.trim() || 'untitled';
-      tab.extension = filenameExt.value;
-
-      const textToSave = tab.content;
-      const blob = new Blob([textToSave], { type: 'text/plain' });
-      const filename = `${tab.name}.${tab.extension}`;
-
-      const tempLink = document.createElement('a');
-      tempLink.href = URL.createObjectURL(blob);
-      tempLink.download = filename;
-      tempLink.click();
-      URL.revokeObjectURL(tempLink.href);
-    }
-
-    
-    btnRun.addEventListener("click", function() {
-  var codeContent = editor.getValue();
-
-  
-  var newWindow = window.open("", "miniWindow", "width=600,height=400,resizable=yes");
-
-  if (newWindow) {
-    newWindow.document.write(codeContent);
-    newWindow.document.close();
-  } else {
-    alert("Popup blocked! Please allow pop-ups for this site.");
-  }
-});
+        <input
+               type="file"
+               id="fileInput"
+               accept=".txt,.html,.css,.js,.json,.md,.xml,.c,.cpp,.java,.py"
+               style="display: none"
+               />
 
 
-    
-    document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
-        e.preventDefault();
-        saveFile();
-      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'o') {
-        e.preventDefault();
-        fileInput.click();
-      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') {
-        e.preventDefault();
-        createAndSwitchToNewTab();
-      }
-    });
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.js"></script>
 
-    
-    (function init() {
-      const initialTabId = createNewTab('untitled', 'txt', '');
-      switchToTab(initialTabId);
-    })();
-  </script>
-  <script>
-    window.addEventListener("beforeunload", (event) => {
-        event.preventDefault(); 
-        event.returnValue = ""; // Required for modern browsers
-    });
-  </script>
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const select = document.getElementById("filenameExt");
-    const tabContainer = document.getElementById("tabContainer");
-    const tabs = document.querySelectorAll(".tab");
-    const groups = document.querySelectorAll(".btn-group");
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/javascript/javascript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/css/css.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/htmlmixed/htmlmixed.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/xml/xml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/clike/clike.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/php/php.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/python/python.min.js"></script>
 
-    function showGroup(groupName) {
-        groups.forEach(group => {
-            group.style.display = "none"; 
-        });
 
-        if (groupName === "html") {
-            tabContainer.style.display = "block";
-            document.querySelector(".btn-group.html").style.display = "flex";
-        } else {
-            tabContainer.style.display = "none";
-            const activeGroup = document.querySelector(`.btn-group.${groupName}`);
-            if (activeGroup) activeGroup.style.display = "flex";
-        }
-    }
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/edit/closetag.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/xml-hint.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/html-hint.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/css-hint.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/javascript-hint.min.js"></script>
 
-    select.addEventListener("change", function () {
-        showGroup(this.value);
-    });
 
-    tabs.forEach(tab => {
-        tab.addEventListener("click", function () {
-            tabs.forEach(t => t.classList.remove("active"));
-            this.classList.add("active");
 
-            groups.forEach(group => group.style.display = "none");
-            document.querySelector(`.btn-group.${this.dataset.tab}`).style.display = "flex";
-        });
-    });
+        <script>
 
-    showGroup(select.value);
-});
-</script>
-    <script>
-    	document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.querySelector(".sidebar");
-    const toggleButton = document.getElementById("sidebar"); 
-    const copyButton = document.getElementById("copy");
-    const repairButton = document.getElementById("repair");
+            let tabs = [];
+            let currentTabId = null;
 
-    let sidebarVisible = true; 
-
-    toggleButton.addEventListener("click", function () {
-        sidebarVisible = !sidebarVisible;
-        sidebar.style.display = sidebarVisible ? "flex" : "none";
-    });
-
-    copyButton.addEventListener("click", function () {
-        if (!editor) return;
-
-        const currentContent = editor.getValue();
-        
-        navigator.clipboard.writeText(currentContent).then(() => {
-        }).catch(err => {
-            console.error("Failed to copy: ", err);
-        });
-    });
-
-    repairButton.addEventListener("click", function () {
-        if (!editor) return;
-
-        editor.operation(() => {
-            let lines = [];
-            for (let i = 0; i < editor.lineCount(); i++) {
-                let line = editor.getLine(i).trim();
-                lines.push(line);
+            function getModeFromExtension(ext) {
+                switch (ext) {
+                    case 'html': return 'htmlmixed';
+                    case 'css':  return 'css';
+                    case 'js':   return 'javascript';
+                    case 'py':   return 'python';
+                    case 'php':  return 'php';
+                    case 'c':
+                    case 'cpp':
+                    case 'java': return 'text/x-c++src';
+                    default:     return 'plaintext';
+                }
             }
 
-            let formattedCode = lines.join("\n");
-
-            editor.replaceRange(formattedCode, { line: 0, ch: 0 }, { line: editor.lineCount(), ch: 0 });
-
-            for (let i = 0; i < editor.lineCount(); i++) {
-                editor.indentLine(i, "smart");
+            function createNewTab(baseName = 'untitled', extension = 'txt', content = '') {
+                const newId = Date.now();
+                tabs.push({ id: newId, name: baseName, extension, content });
+                return newId;
             }
-        });
 
-    });
-});
+            function renderTabs() {
+                const tabsContainer = document.getElementById('tabsContainer');
+                tabsContainer.innerHTML = '';
+
+                tabs.forEach((tab) => {
+                    const tabEl = document.createElement('div');
+                    tabEl.className = 'tab-item' + (tab.id === currentTabId ? ' active' : '');
+                    tabEl.setAttribute('data-id', tab.id);
 
 
-    </script>
-</body>
+                    const titleSpan = document.createElement('span');
+                    titleSpan.className = 'tab-title';
+                    titleSpan.textContent = tab.name + '.' + tab.extension;
+                    tabEl.appendChild(titleSpan);
+
+
+                    const renameInput = document.createElement('input');
+                    renameInput.type = 'text';
+                    renameInput.className = 'tab-rename-input';
+                    renameInput.value = tab.name;
+                    tabEl.appendChild(renameInput);
+
+
+                    const closeSpan = document.createElement('span');
+                    closeSpan.className = 'tab-close';
+                    closeSpan.textContent = 'x';
+                    tabEl.appendChild(closeSpan);
+
+
+                    tabEl.addEventListener('click', (e) => {
+                        if (e.target === closeSpan) return;
+                        switchToTab(tab.id);
+                    });
+
+                    titleSpan.addEventListener('dblclick', (e) => {
+                        e.stopPropagation();
+                        startTabRename(tab.id, tabEl);
+                    });
+
+                    closeSpan.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        closeTab(tab.id);
+                    });
+
+
+                    renameInput.addEventListener('blur', () => {
+                        finishTabRename(tab.id, renameInput.value);
+                    });
+                    renameInput.addEventListener('keydown', (evt) => {
+                        if (evt.key === 'Enter') {
+                            evt.preventDefault();
+                            finishTabRename(tab.id, renameInput.value);
+                        }
+                    });
+
+                    tabsContainer.appendChild(tabEl);
+                });
+            }
+
+            function startTabRename(tabId, tabEl) {
+                const titleSpan = tabEl.querySelector('.tab-title');
+                const renameInput = tabEl.querySelector('.tab-rename-input');
+                titleSpan.style.display = 'none';
+                renameInput.style.display = 'inline-block';
+                renameInput.focus();
+                renameInput.select();
+            }
+
+            function finishTabRename(tabId, newName) {
+                const tab = tabs.find(t => t.id === tabId);
+                if (!tab) return;
+                newName = newName.trim() || 'untitled';
+                tab.name = newName;
+                renderTabs();
+
+                if (tabId === currentTabId) {
+                    filenameBaseLabel.textContent = tab.name;
+                    filenameBaseInput.value = tab.name;
+                }
+            }
+
+            function closeTab(tabId) {
+                const index = tabs.findIndex(t => t.id === tabId);
+                if (index === -1) return;
+                tabs.splice(index, 1);
+
+                if (tabId === currentTabId) {
+
+                    if (tabs.length > 0) {
+                        switchToTab(tabs[tabs.length - 1].id);
+                    } else {
+
+                        currentTabId = null;
+                        const newTabId = createNewTab();
+                        switchToTab(newTabId);
+                    }
+                } else {
+                    renderTabs();
+                }
+            }
+
+            function switchToTab(tabId) {
+
+                if (currentTabId !== null) {
+                    const currentTab = tabs.find(t => t.id === currentTabId);
+                    if (currentTab) {
+                        currentTab.content = editor.getValue();
+                        currentTab.name = filenameBaseInput.value.trim() || 'untitled';
+                        currentTab.extension = filenameExt.value;
+                    }
+                }
+                currentTabId = tabId;
+                const newTab = tabs.find(t => t.id === currentTabId);
+                if (!newTab) return;
+
+                editor.setValue(newTab.content || '');
+                editor.setOption('mode', getModeFromExtension(newTab.extension));
+                filenameBaseLabel.textContent = newTab.name;
+                filenameBaseInput.value = newTab.name;
+                filenameExt.value = newTab.extension;
+
+                renderTabs();
+            }
+
+
+            const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
+                lineNumbers: true,
+                mode: 'plaintext',
+                theme: 'eclipse',
+                tabSize: 4,
+                indentUnit: 4,
+                autoCloseTags: true,
+                extraKeys: {
+                    'Ctrl-Space': 'autocomplete',
+
+                    // Multi-line indent with Tab
+                    'Tab': function(cm) {
+                        if (cm.somethingSelected()) {
+                            cm.indentSelection('add');
+                        } else {
+                            cm.replaceSelection('\t');
+                        }
+                    },
+
+                    // Multi-line outdent with Shift+Tab
+                    'Shift-Tab': function(cm) {
+                        if (cm.somethingSelected()) {
+                            cm.indentSelection('subtract');
+                        }
+                    }
+                }
+            });
+
+
+
+            editor.on('inputRead', function(cm, change) {
+
+                if (change.text && change.text[0].length === 1) {
+                    CodeMirror.commands.autocomplete(cm, null, { completeSingle: false });
+                }
+            });
+
+
+            const statusText = document.getElementById('statusText');
+            editor.on('cursorActivity', function() {
+                const pos = editor.getCursor();
+                statusText.textContent = `Line ${pos.line + 1}, Col ${pos.ch + 1}`;
+            });
+
+
+            const btnNew = document.getElementById('btnNew');
+            const btnLoad = document.getElementById('btnLoad');
+            const btnSave = document.getElementById('btnSave');
+            const btnRun = document.getElementById('btnRun');
+            const fileInput = document.getElementById('fileInput');
+
+            const filenameBaseLabel = document.getElementById('filenameBaseLabel');
+            const filenameBaseInput = document.getElementById('filenameBaseInput');
+            const filenameExt = document.getElementById('filenameExt');
+
+
+            filenameBaseLabel.addEventListener('dblclick', () => {
+                filenameBaseLabel.style.display = 'none';
+                filenameBaseInput.style.display = 'inline-block';
+                filenameBaseInput.focus();
+                filenameBaseInput.select();
+            });
+            filenameBaseInput.addEventListener('blur', () => {
+                applyTopBarRename();
+            });
+            filenameBaseInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    applyTopBarRename();
+                }
+            });
+            function applyTopBarRename() {
+                const newName = filenameBaseInput.value.trim() || 'untitled';
+                filenameBaseLabel.textContent = newName;
+                filenameBaseInput.style.display = 'none';
+                filenameBaseLabel.style.display = 'inline-block';
+                if (currentTabId !== null) {
+                    const tab = tabs.find(t => t.id === currentTabId);
+                    if (tab) {
+                        tab.name = newName;
+                        renderTabs();
+                    }
+                }
+            }
+
+
+            filenameExt.addEventListener('change', () => {
+                if (currentTabId === null) return;
+                const currentTab = tabs.find(t => t.id === currentTabId);
+                if (currentTab) {
+                    currentTab.extension = filenameExt.value;
+                    editor.setOption('mode', getModeFromExtension(currentTab.extension));
+                    renderTabs();
+                }
+            });
+
+
+            function createAndSwitchToNewTab() {
+                const newTabId = createNewTab();
+                switchToTab(newTabId);
+            }
+
+
+            btnNew.addEventListener('click', createAndSwitchToNewTab);
+
+
+            btnLoad.addEventListener('click', () => {
+                fileInput.click();
+            });
+            fileInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const parts = file.name.split('.');
+                    const baseName = parts.slice(0, -1).join('.') || 'untitled';
+                    const extension = parts.slice(-1)[0] || 'txt';
+                    const newTabId = createNewTab(baseName, extension, e.target.result);
+                    switchToTab(newTabId);
+                };
+                reader.readAsText(file);
+                this.value = '';
+            });
+
+
+            btnSave.addEventListener('click', saveFile);
+            function saveFile() {
+                if (currentTabId === null) return;
+                const tab = tabs.find(t => t.id === currentTabId);
+                if (!tab) return;
+                tab.content = editor.getValue();
+                tab.name = filenameBaseInput.value.trim() || 'untitled';
+                tab.extension = filenameExt.value;
+
+                const textToSave = tab.content;
+                const blob = new Blob([textToSave], { type: 'text/plain' });
+                const filename = `${tab.name}.${tab.extension}`;
+
+                const tempLink = document.createElement('a');
+                tempLink.href = URL.createObjectURL(blob);
+                tempLink.download = filename;
+                tempLink.click();
+                URL.revokeObjectURL(tempLink.href);
+            }
+
+
+            btnRun.addEventListener("click", function() {
+                var codeContent = editor.getValue();
+
+
+                var newWindow = window.open("", "miniWindow", "width=600,height=400,resizable=yes");
+
+                if (newWindow) {
+                    newWindow.document.write(codeContent);
+                    newWindow.document.close();
+                } else {
+                    alert("Popup blocked! Please allow pop-ups for this site.");
+                }
+            });
+
+
+
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+                    e.preventDefault();
+                    saveFile();
+                } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'o') {
+                    e.preventDefault();
+                    fileInput.click();
+                } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') {
+                    e.preventDefault();
+                    createAndSwitchToNewTab();
+                }
+            });
+
+
+            (function init() {
+                const initialTabId = createNewTab('untitled', 'txt', '');
+                switchToTab(initialTabId);
+            })();
+        </script>
+        <script>
+            window.addEventListener("beforeunload", (event) => {
+                event.preventDefault();
+                event.returnValue = ""; // Required for modern browsers
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const select = document.getElementById("filenameExt");
+                const tabContainer = document.getElementById("tabContainer");
+                const tabs = document.querySelectorAll(".tab");
+                const groups = document.querySelectorAll(".btn-group");
+
+                function showGroup(groupName) {
+                    groups.forEach(group => {
+                        group.style.display = "none";
+                    });
+
+                    if (groupName === "html") {
+                        tabContainer.style.display = "block";
+                        document.querySelector(".btn-group.html").style.display = "flex";
+                    } else {
+                        tabContainer.style.display = "none";
+                        const activeGroup = document.querySelector(`.btn-group.${groupName}`);
+                        if (activeGroup) activeGroup.style.display = "flex";
+                    }
+                }
+
+                select.addEventListener("change", function () {
+                    showGroup(this.value);
+                });
+
+                tabs.forEach(tab => {
+                    tab.addEventListener("click", function () {
+                        tabs.forEach(t => t.classList.remove("active"));
+                        this.classList.add("active");
+
+                        groups.forEach(group => group.style.display = "none");
+                        document.querySelector(`.btn-group.${this.dataset.tab}`).style.display = "flex";
+                    });
+                });
+
+                showGroup(select.value);
+            });
+        </script>
+        <script>
+            editor.on("change", function () {
+                const cmWrapper = document.querySelector(".CodeMirror");
+                cmWrapper.style.minWidth = "100%";
+                cmWrapper.style.maxWidth = "none";
+            });
+
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const sidebar = document.querySelector(".sidebar");
+                const toggleButton = document.getElementById("sidebar");
+                const copyButton = document.getElementById("copy");
+                const repairButton = document.getElementById("repair");
+
+                let sidebarVisible = true;
+
+                toggleButton.addEventListener("click", function () {
+                    sidebarVisible = !sidebarVisible;
+                    sidebar.style.display = sidebarVisible ? "flex" : "none";
+                });
+
+                copyButton.addEventListener("click", function () {
+                    if (!editor) return;
+
+                    const currentContent = editor.getValue();
+
+                    navigator.clipboard.writeText(currentContent).then(() => {
+                    }).catch(err => {
+                        console.error("Failed to copy: ", err);
+                    });
+                });
+
+                repairButton.addEventListener("click", function () {
+                    if (!editor) return;
+
+                    editor.operation(() => {
+                        let lines = [];
+                        for (let i = 0; i < editor.lineCount(); i++) {
+                            let line = editor.getLine(i).trim();
+                            lines.push(line);
+                        }
+
+                        let formattedCode = lines.join("\n");
+
+                        editor.replaceRange(formattedCode, { line: 0, ch: 0 }, { line: editor.lineCount(), ch: 0 });
+
+                        for (let i = 0; i < editor.lineCount(); i++) {
+                            editor.indentLine(i, "smart");
+                        }
+                    });
+
+                });
+            });
+
+
+        </script>
+        <script>
+            function updateEditorWidth() {
+                const editorContainer = document.querySelector(".editor-container");
+                const sidebar = document.querySelector(".sidebar");
+                const codeMirrorScroll = document.querySelector(".CodeMirror-scroll");
+
+                if (!editorContainer || !codeMirrorScroll) return;
+
+                let windowWidth = window.innerWidth;
+
+                let sidebarWidth = sidebar && window.getComputedStyle(sidebar).display !== "none"
+                ? sidebar.offsetWidth
+                : 0;
+
+                let availableWidth = windowWidth - sidebarWidth;
+                codeMirrorScroll.style.maxWidth = `${availableWidth}px`;
+                codeMirrorScroll.style.overflowX = "auto";
+            }
+
+            window.addEventListener("resize", updateEditorWidth);
+            window.addEventListener("DOMContentLoaded", updateEditorWidth);
+
+            document.getElementById("sidebar").addEventListener("click", function () {
+                setTimeout(updateEditorWidth, 300);
+            });
+
+        </script>
+    </body>
 </html>
