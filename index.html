@@ -317,6 +317,148 @@
             }
 
         </style>
+        <style>
+            .cm-s-custom-dark {
+                background: #1e1e2e;
+                color: #cdd6f4;
+                font-family: 'Fira Code', monospace;
+                font-size: 14px;
+                line-height: 1.5;
+                border-radius: 8px;
+                padding: 8px;
+            }
+
+            .cm-s-custom-dark .CodeMirror-linenumber {
+                color: #6c7086;
+            }
+
+            .cm-s-custom-dark .CodeMirror-cursor {
+                border-left: 2px solid #89b4fa !important;
+                animation: cursor-blink 1s step-end infinite;
+            }
+
+            @keyframes cursor-blink {
+                50% { opacity: 0; }
+            }
+
+            .cm-s-custom-dark .CodeMirror-selected {
+                background: rgba(137, 180, 250, 0.2) !important;
+            }
+
+            .cm-s-custom-dark .CodeMirror-scrollbar-filler,
+            .cm-s-custom-dark .CodeMirror-gutter-filler {
+                background: #181825;
+            }
+
+            .cm-s-custom-dark .CodeMirror-vscrollbar,
+            .cm-s-custom-dark .CodeMirror-hscrollbar {
+                background: #181825;
+            }
+
+            .cm-s-custom-dark ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+
+            .cm-s-custom-dark ::-webkit-scrollbar-thumb {
+                background: #45475a;
+                border-radius: 4px;
+            }
+
+            .cm-s-custom-dark ::-webkit-scrollbar-thumb:hover {
+                background: #585b70;
+            }
+
+            /* --- Syntax Highlighting --- */
+
+            /* Keywords */
+            .cm-s-custom-dark .cm-keyword {
+                color: #cba6f7;
+                font-weight: bold;
+            }
+
+            /* Strings */
+            .cm-s-custom-dark .cm-string {
+                color: #a6e3a1;
+            }
+
+            /* Numbers */
+            .cm-s-custom-dark .cm-number {
+                color: #fab387;
+            }
+
+            /* Variables */
+            .cm-s-custom-dark .cm-variable {
+                color: #f9e2af;
+            }
+
+            /* Operators */
+            .cm-s-custom-dark .cm-operator {
+                color: #f38ba8;
+            }
+
+            /* Functions */
+            .cm-s-custom-dark .cm-def {
+                color: #89b4fa;
+                font-weight: bold;
+            }
+
+            /* Comments */
+            .cm-s-custom-dark .cm-comment {
+                color: #6c7086;
+                font-style: italic;
+            }
+
+            /* Brackets */
+            .cm-s-custom-dark .cm-bracket {
+                color: #f5e0dc;
+            }
+
+            /* Matching Brackets */
+            .cm-s-custom-dark .CodeMirror-matchingbracket {
+                background: rgba(255, 184, 108, 0.3);
+                border-bottom: 2px solid #fab387;
+            }
+
+            /* HTML Tags */
+            .cm-s-custom-dark .cm-tag {
+                color: #f38ba8;
+            }
+
+            /* Attributes */
+            .cm-s-custom-dark .cm-attribute {
+                color: #f9e2af;
+            }
+
+            /* CSS Properties */
+            .cm-s-custom-dark .cm-property {
+                color: #fab387;
+            }
+
+            /* CSS Values */
+            .cm-s-custom-dark .cm-variable-2 {
+                color: #94e2d5;
+            }
+
+            /* --- Editor Styling --- */
+            .CodeMirror {
+                height: 100%;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Matching Bracket Highlight */
+            .CodeMirror-matchingbracket {
+                outline: 1px solid #fab387;
+            }
+
+            /* Gutter */
+            .cm-s-custom-dark .CodeMirror-gutters {
+                background: #1e1e2e;
+                border-right: 1px solid #313244;
+            }
+        </style>
+
     </head>
 
     <body>
@@ -599,14 +741,13 @@
             const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
                 lineNumbers: true,
                 mode: 'plaintext',
-                theme: 'eclipse',
+                theme: 'custom-dark',  
                 tabSize: 4,
                 indentUnit: 4,
                 autoCloseTags: true,
                 extraKeys: {
                     'Ctrl-Space': 'autocomplete',
 
-                    // Multi-line indent with Tab
                     'Tab': function(cm) {
                         if (cm.somethingSelected()) {
                             cm.indentSelection('add');
@@ -615,7 +756,6 @@
                         }
                     },
 
-                    // Multi-line outdent with Shift+Tab
                     'Shift-Tab': function(cm) {
                         if (cm.somethingSelected()) {
                             cm.indentSelection('subtract');
@@ -626,6 +766,7 @@
 
 
 
+
             editor.on('inputRead', function(cm, change) {
                 let mode = cm.getOption('mode');
                 let cursor = cm.getCursor();
@@ -633,43 +774,36 @@
                 let shouldAutocomplete = false;
 
                 if (mode === 'htmlmixed') {
-                    // HTML: Only autocomplete when starting a tag (`<`) or inside a tag/attribute
                     if (change.text[0] === '<' || token.type === 'tag' || token.type === 'attribute') {
                         shouldAutocomplete = true;
                     }
 
-                    // Enable JS autocomplete inside <script> tags
                     if (token.state.context && token.state.context.tagName === "script") {
                         cm.setOption("mode", "javascript");
                         shouldAutocomplete = true;
                     }
 
-                    // Enable CSS autocomplete inside <style> tags
                     if (token.state.context && token.state.context.tagName === "style") {
                         cm.setOption("mode", "css");
                         shouldAutocomplete = true;
                     }
                 }
                 else if (mode === 'javascript') {
-                    // JS: Autocomplete when typing variable names, function names, or dots (`.`)
                     if (/\w|\./.test(change.text[0])) {
                         shouldAutocomplete = true;
                     }
                 }
                 else if (mode === 'css') {
-                    // CSS: Autocomplete for properties and values when typing inside `{ }`
                     if (token.type === 'property' || token.type === 'variable-3' || token.type === 'keyword' || change.text[0] === ':') {
                         shouldAutocomplete = true;
                     }
                 }
                 else if (mode === 'python') {
-                    // Python: Autocomplete for function names, imports, and dots (`.`)
                     if (/\w|\./.test(change.text[0])) {
                         shouldAutocomplete = true;
                     }
                 }
                 else if (mode === 'php') {
-                    // PHP: Autocomplete when inside `<?php ?>` blocks
                     if (token.type === 'variable' || change.text[0] === '$' || token.type === 'keyword') {
                         shouldAutocomplete = true;
                     }
