@@ -103,11 +103,13 @@
                 margin-right: 4px;
                 border: 1px solid #ccc;
                 border-radius: 3px;
-                padding: 6px;
                 cursor: pointer;
                 font-family: Noto Emoji;
                 backdrop-filter: blur(5px);
                 transition: all 0.2s ease-in-out;
+                 background-color: #1e1e2e;
+                backdrop-filter: blur(10px);
+                filter:opacity(70%);
             }
 
             .load-save-row button:last-child {
@@ -116,7 +118,10 @@
 
             .load-save-row button:hover {
                 filter: brightness(90%);
-                backdrop-filter: blur(8px);
+                filter:opacity(70%);
+            }
+            .load-save-row button img{
+             	filter:invert(100%);   
             }
 
             /* Tabs */
@@ -236,6 +241,7 @@
                 display: inline-block;
                 padding-right: 3px;
                 cursor: text;
+                color:white;
             }
 
             .filename-input {
@@ -246,6 +252,8 @@
                 padding: 2px 4px;
                 text-align: right;
                 margin-right: 3px;
+                color:white;
+                filter:opacity(70%);
             }
 
             .filename-ext {
@@ -255,6 +263,8 @@
                 font-family: inherit;
                 font-size: inherit;
                 cursor: pointer;
+                color:white;
+                outline:none;
             }
 
             .filename-ext option {
@@ -263,12 +273,18 @@
 
             /* Buttons in Top Bar */
             .topbar button {
-                border: 1px solid #ccc;
                 border-radius: 3px;
-                padding: 2px;
                 cursor: pointer;
+                padding:0;
                 backdrop-filter: blur(5px);
                 transition: all 0.2s ease-in-out;
+                height:20px;
+                
+            }
+            .topbar button img{
+            	margin:0;
+                padding:0;
+                filter:invert(100%);
             }
 
             .topbar button:hover {
@@ -283,6 +299,9 @@
                 flex-direction: column;
                 overflow: hidden;
                 background: transparent;
+                margin-right:10px;
+                margin-bottom:5px;
+                margin-left:10px;
             }
 
             /* CodeMirror Styling */
@@ -304,23 +323,26 @@
             /* Status Bar */
             .status-bar {
                 height: 24px;
-                border-top: 1px solid #ccc;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 padding: 0 10px;
                 font-size: 13px;
                 background: transparent;
+                color:white;
+                filter:opacity(70%);
             }
 
             /* Buttons */
             button {
-                border: 1px solid #ccc;
+                background-color:transparent;
+                border:none;
                 padding: 4px 8px;
                 cursor: pointer;
                 border-radius: 5px;
                 backdrop-filter: blur(5px);
                 transition: all 0.2s ease-in-out;
+                
             }
 
             button:hover {
@@ -510,8 +532,8 @@
 
 
                 <div class="load-save-row">
-                    <button id="btnLoad"><img style="width:10px;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/open.png?raw=true"></button>
-                    <button id="btnSave"><img style="width:10px;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/save.png?raw=true"></button>
+                    <button id="btnLoad"><img style="width:15px;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/open.png?raw=true"></button>
+                    <button id="btnSave"><img style="width:15px;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/save.png?raw=true"></button>
                 </div>
 
 
@@ -532,8 +554,8 @@
 
             <div class="topbar">
                 <div class="functions">
-                    <button id="sidebar">Sidebar</button>
-                    <button id="copy">Copy</button>
+                    <button id="sidebar"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/sidebar-toggle.png?raw=true" style="width:20px;"></button>
+                    <button id="copy"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/copy.png?raw=true" style="width:20px;"></button>
                     <button id="repair">Repair</button>
                 </div>
                 <div class="file-info">
@@ -556,13 +578,13 @@
                         <option value="php">.php</option>
                     </select>
                 </div>
-                <button id="btnRun">Run</button>
+                <button id="btnRun"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/play-332.png?raw=true" style="width:20px;"></button>
             </div>
 
 
             <div class="editor-container">
                 <textarea id="codeEditor"></textarea>
-            </div>  
+            </div>
             <div class="status-bar">
                 <div id="statusText">Line 1, Col 1</div>
                 <div id="statusEncoding">UTF-8 | Windows (CR LF)</div>
