@@ -367,7 +367,17 @@
                 flex-wrap: wrap;
             }
 
-
+            .functions, .runcontainer{
+                background: #1e1e2e;
+                backdrop-filter: blur(10px);
+                filter:opacity(70%);
+                padding-top:4px;
+                padding-left:5px;
+                padding-right:3px;
+                padding-bottom:2px;
+                border-radius:8px;
+                margin-top:2px;
+            }
         </style>
         <style>
             .cm-s-custom-dark {
@@ -525,12 +535,12 @@
                 </div>
 
 
-                <button id="btnNew">+</button>
+                <button id="btnNew" title="New file">+</button>
 
 
                 <div class="load-save-row">
-                    <button id="btnLoad"><img style="width:15px; image-rendering: crisp-edges;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/open.png?raw=true"></button>
-                    <button id="btnSave"><img style="width:15px; image-rendering: crisp-edges;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/save.png?raw=true"></button>
+                    <button id="btnLoad" title="Load"><img style="width:15px; image-rendering: crisp-edges;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/open.png?raw=true"></button>
+                    <button id="btnSave" title="Save"><img style="width:15px; image-rendering: crisp-edges;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/save.png?raw=true"></button>
                 </div>
 
 
@@ -540,8 +550,8 @@
             </div>
 
             <div class="sidebar-bottom">
-                <button id="btnExtensions"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/toolbox.png?raw=true" style="width:15px;"></button>
-                <button id="btnSettings"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/settings.png?raw=true" style="width:15px;"></button>
+                <button id="btnExtensions" title="Extensions"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/toolbox.png?raw=true" style="width:15px;"></button>
+                <button id="btnSettings" title="Settings"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/settings.png?raw=true" style="width:15px;"></button>
             </div>
         </div>
 
@@ -551,9 +561,9 @@
 
             <div class="topbar">
                 <div class="functions">
-                    <button id="sidebar"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/sidebar-toggle.png?raw=true" style="width:20px;"></button>
-                    <button id="copy"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/copy.png?raw=true" style="width:20px;"></button>
-                    <button id="repair"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/repair-icon-2048x2048-0z7vbaam.png?raw=true" style="width:20px;"></button>
+                    <button id="sidebar" title="Toggle sidebar"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/sidebar-toggle.png?raw=true" style="width:20px;"></button>
+                    <button id="copy" title="Copy tab"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/copy.png?raw=true" style="width:20px;"></button>
+                    <button id="repair" title="Repair indentation"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/repair-icon-2048x2048-0z7vbaam.png?raw=true" style="width:20px;"></button>
                 </div>
                 <div class="file-info">
 
@@ -575,7 +585,10 @@
                         <option value="php">.php</option>
                     </select>
                 </div>
-                <button id="btnRun"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/play-332.png?raw=true" style="width:20px;"></button>
+                <div class="runcontainer">
+                    <button id="btnRun" title="Run"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/play-332.png?raw=true" style="width:20px;"></button>
+                </div>
+
             </div>
 
 
