@@ -23,7 +23,7 @@
               rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.css"
               />
-        <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/cat-ci/Sablescript/refs/heads/main/.github/sablescriptbliss.ico">
+        <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/cat-ci/Sablescript/refs/heads/main/.github/images/logos/sablescriptbliss.ico">
         <style>
             * {
                 margin: 0;
@@ -520,6 +520,7 @@
                 background: #1e1e2e;
                 border-right: 1px solid #313244;
             }
+            
         </style>
         <style>
 
@@ -592,7 +593,7 @@
                 left: 0;
                 background: #1e1e2e;
                 backdrop-filter: blur(10px);
-                filter: opacity(90%);
+                filter: opacity(99%);
                 border-radius: 4px;
                 padding: 4px 0;
                 display: none;
@@ -719,7 +720,9 @@
 
         <div class="sidebar">
             <div class="sidebar-top">
-
+				<div class="inner-topbar">
+                    
+                </div>
                 <div class="sidebar-search">
                     <input type="search" placeholder="Search..." />
                 </div>
@@ -1313,6 +1316,113 @@
                 setTimeout(updateEditorWidth, 300);
             });
 
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const fileMenu = document.querySelector(".file .dropdown-content");
+                const editMenu = document.querySelector(".edit .dropdown-content");
+                const fileInput = document.getElementById("fileInput");
+
+                function createAndSwitchToNewTab() {
+                    const newTabId = createNewTab();
+                    switchToTab(newTabId);
+                }
+
+                function openFile() {
+                    fileInput.click();
+                }
+
+                fileInput.addEventListener("change", function () {
+                    const file = this.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const parts = file.name.split(".");
+                        const baseName = parts.slice(0, -1).join(".") || "untitled";
+                        const extension = parts.slice(-1)[0] || "txt";
+                        const newTabId = createNewTab(baseName, extension, e.target.result);
+                        switchToTab(newTabId);
+                    };
+                    reader.readAsText(file);
+                    this.value = "";
+                });
+
+                function saveFile() {
+                    if (currentTabId === null) return;
+                    const tab = tabs.find(t => t.id === currentTabId);
+                    if (!tab) return;
+                    tab.content = editor.getValue();
+                    tab.name = filenameBaseInput.value.trim() || "untitled";
+                    tab.extension = filenameExt.value;
+
+                    const textToSave = tab.content;
+                    const blob = new Blob([textToSave], { type: "text/plain" });
+                    const filename = `${tab.name}.${tab.extension}`;
+
+                    const tempLink = document.createElement("a");
+                    tempLink.href = URL.createObjectURL(blob);
+                    tempLink.download = filename;
+                    tempLink.click();
+                    URL.revokeObjectURL(tempLink.href);
+                }
+
+                function saveFileAs() {
+                    if (currentTabId === null) return;
+                    const tab = tabs.find(t => t.id === currentTabId);
+                    if (!tab) return;
+
+                    const textToSave = editor.getValue();
+                    const blob = new Blob([textToSave], { type: "text/plain" });
+                    const a = document.createElement("a");
+                    a.href = URL.createObjectURL(blob);
+                    a.download = `${tab.name}.${tab.extension}`;
+                    a.click();
+                    URL.revokeObjectURL(a.href);
+                }
+
+                function undoEdit() {
+                    editor.undo();
+                }
+
+                function redoEdit() {
+                    editor.redo();
+                }
+
+                function copyText() {
+                    navigator.clipboard.writeText(editor.getSelection());
+                }
+
+                function copyAllText() {
+                    navigator.clipboard.writeText(editor.getValue());
+                }
+
+                function pasteText() {
+                    navigator.clipboard.readText().then(text => {
+                        editor.replaceSelection(text);
+                    });
+                }
+
+                function selectAllText() {
+                    editor.execCommand("selectAll");
+                }
+
+                function repairIndentation() {
+                    editor.execCommand("indentAuto");
+                }
+
+                fileMenu.querySelector("a:nth-child(1)").addEventListener("click", createAndSwitchToNewTab);
+                fileMenu.querySelector("a:nth-child(2)").addEventListener("click", openFile);
+                fileMenu.querySelector("a:nth-child(3)").addEventListener("click", saveFile);
+                fileMenu.querySelector("a:nth-child(4)").addEventListener("click", saveFileAs);
+
+                editMenu.querySelector("a:nth-child(1)").addEventListener("click", undoEdit);
+                editMenu.querySelector("a:nth-child(2)").addEventListener("click", redoEdit);
+                editMenu.querySelector("a:nth-child(4)").addEventListener("click", copyText);
+                editMenu.querySelector("a:nth-child(5)").addEventListener("click", copyAllText);
+                editMenu.querySelector("a:nth-child(6)").addEventListener("click", pasteText);
+                editMenu.querySelector("a:nth-child(7)").addEventListener("click", selectAllText);
+                editMenu.querySelector("a:nth-child(9)").addEventListener("click", repairIndentation);
+            });
         </script>
     </body>
 </html>
