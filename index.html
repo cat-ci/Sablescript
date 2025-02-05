@@ -521,11 +521,258 @@
                 border-right: 1px solid #313244;
             }
         </style>
+        <style>
+            .dropbtn {
+                background-color: transparent;
+                color: white;
+                padding: 2px;
+                font-size: 16px;
+                border: none;
+            }
+
+            .file {
+                position: relative;
+                display: inline-block;
+            }
+            .edit {
+                position: relative;
+                display: inline-block;
+            }
+            .search{
+                position: relative;
+                display: inline-block;
+            }
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background: #1e1e2e;
+                backdrop-filter: blur(10px);
+                filter:opacity(70%);
+                max-width: 160px;
+                width:300%;
+                border-bottom-left-radius:8px;
+                border-bottom-right-radius:8px;
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 8px;
+                text-decoration: none;
+                display: block;
+                color:white;
+                border-radius:8px;
+            }
+
+            .dropdown-content a:hover {
+                filter: brightness(90%);
+                backdrop-filter: blur(8px);
+            }
+
+            .file:hover .dropdown-content {
+                display: block;
+            }
+
+            .file:hover .dropbtn {
+                filter: brightness(90%);
+                backdrop-filter: blur(8px);
+            }
+            .edit:hover .dropdown-content {display: block;}
+
+            .edit:hover .dropbtn {
+                filter: brightness(90%);
+                backdrop-filter: blur(8px);
+            }
+            .search:hover .dropdown-content {display: block;}
+
+            .search:hover .dropbtn {
+                filter: brightness(90%);
+                backdrop-filter: blur(8px);
+            }
+            hr{
+                filter:opacity(70%);
+            }
+        </style>
+        <style>
+            /* Fix Menubar */
+            .menubar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 30px; /* Thin and compact */
+                background: #1e1e2e;
+                backdrop-filter: blur(10px);
+                filter: opacity(80%);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 10px;
+                z-index: 1000;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            /* Add padding to body to prevent overlap */
+            body {
+                padding-top: 30px; /* Pushes everything below the menu bar */
+            }
+
+            /* Compact left and right menus */
+            .menubar .leftside,
+            .menubar .rightside {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            /* Menu bar buttons */
+            .menubar .dropbtn,
+            .menubar button {
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 14px;
+                cursor: pointer;
+                padding: 5px;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .menubar .dropbtn:hover,
+            .menubar button:hover {
+                filter: brightness(90%);
+            }
+
+            /* Dropdown menus */
+            .menubar .dropdown-content {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: #1e1e2e;
+                backdrop-filter: blur(10px);
+                filter: opacity(90%);
+                border-radius: 4px;
+                padding: 4px 0;
+                display: none;
+                width: max-content;
+                min-width: 120px;
+            }
+
+            .menubar .file:hover .dropdown-content,
+            .menubar .edit:hover .dropdown-content,
+            .menubar .search:hover .dropdown-content {
+                display: block;
+            }
+
+            /* Dropdown menu items */
+            .menubar .dropdown-content a {
+                color: white;
+                padding: 6px 10px;
+                text-decoration: none;
+                display: block;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .menubar .dropdown-content a:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            /* Icons styling */
+            .menubar button img {
+                width: 18px;
+                height: 18px;
+                filter: invert(100%);
+                vertical-align: middle;
+            }
+
+            /* Compact divider */
+            .menubar .divider {
+                color: white;
+                font-weight: bold;
+                padding: 0 5px;
+            }
+
+            /* Time display */
+            .menubar .time {
+                color: white;
+                font-size: 14px;
+            }
+            .sidebar-search {
+                margin-top: 22px; /* Push search field down */
+            }
+        </style>
 
     </head>
 
     <body>
+        <div class="menubar">
+            <div class="leftside">
+                <div class="file">
+                    <button class="dropbtn">File</button>
+                    <div class="dropdown-content">
+                        <a>New</a>
+                        <a>Open</a>
+                        <a>Save</a>
+                        <a>Save as</a>
+                    </div>
+                </div>
+                <div class="edit">
+                    <button class="dropbtn">Edit</button>
+                    <div class="dropdown-content">
+                        <a>Undo</a>
+                        <a>Redo</a>
+                        <hr>
+                        <a>Copy</a>
+                        <a>Copy all</a>
+                        <a>Paste</a>
+                        <a>Select all</a>
+                        <hr>
+                        <a>Repair</a>
+                    </div>
+                </div>
+                <div class="search">
+                    <button class="dropbtn">Search</button>
+                    <div class="dropdown-content">
+                        <a>Find</a>
+                        <a>Replace</a>
+                        <a>Go to line</a>
+                        <a>Smart replace</a>
+                    </div>
+                </div>
+                <button id="sidebar" title="Toggle sidebar"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/sidebar-toggle.png?raw=true" style="width:20px;"></button>
+            </div>
 
+            <div class="rightside">
+                <div class="tools">
+                    <button id="copy" title="Copy tab"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/copy.png?raw=true" style="width:20px;"></button>
+                    <button id="repair" title="Repair indentation"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/repair-icon-2048x2048-0z7vbaam.png?raw=true" style="width:20px;"></button>
+                </div>
+                <span class="divider">|</span>
+                <div class="run options">
+                    <button id="btnRun" title="Run"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/play-332.png?raw=true" style="width:20px;"></button>
+                </div>
+                <span class="divider">|</span>
+                <div class="time">
+                    <script>
+                        function updateTime() {
+                            const timeElement = document.getElementById("time");
+                            if (!timeElement) return;
+
+                            const now = new Date();
+                            const hours = now.getHours().toString().padStart(2, '0');
+                            const minutes = now.getMinutes().toString().padStart(2, '0');
+                            const seconds = now.getSeconds().toString().padStart(2, '0');
+
+                            timeElement.textContent = `${hours}:${minutes}`;
+                        }
+
+                        // Update time immediately and then every second
+                        updateTime();
+                        setInterval(updateTime, 1000);
+                    </script>
+                    <a id="time">00:00</a>
+                </div>
+            </div>
+        </div>
 
         <div class="sidebar">
             <div class="sidebar-top">
@@ -560,11 +807,7 @@
 
 
             <div class="topbar">
-                <div class="functions">
-                    <button id="sidebar" title="Toggle sidebar"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/sidebar-toggle.png?raw=true" style="width:20px;"></button>
-                    <button id="copy" title="Copy tab"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/copy.png?raw=true" style="width:20px;"></button>
-                    <button id="repair" title="Repair indentation"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/repair-icon-2048x2048-0z7vbaam.png?raw=true" style="width:20px;"></button>
-                </div>
+
                 <div class="file-info">
 
                     <span class="filename-label" id="filenameBaseLabel">untitled</span>
@@ -585,9 +828,8 @@
                         <option value="php">.php</option>
                     </select>
                 </div>
-                <div class="runcontainer">
-                    <button id="btnRun" title="Run"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/play-332.png?raw=true" style="width:20px;"></button>
-                </div>
+
+
 
             </div>
 
