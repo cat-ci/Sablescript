@@ -34,7 +34,7 @@
 
             html, body {
                 height: 100%;
-                background: url("https://raw.githubusercontent.com/cat-ci/Sablescript/refs/heads/main/.github/bliss.webp") no-repeat center center fixed;
+                background: url("https://raw.githubusercontent.com/cat-ci/Sablescript/refs/heads/main/.github/images/backgrounds/bliss.webp") no-repeat center center fixed;
                 background-size: cover;
                 overflow-x: hidden;
             }
@@ -526,7 +526,7 @@
                 background-color: transparent;
                 color: white;
                 padding: 2px;
-                font-size: 16px;
+                font-size: 14px;
                 border: none;
             }
 
@@ -655,6 +655,7 @@
                 display: none;
                 width: max-content;
                 min-width: 120px;
+                font-size:14px; !important
             }
 
             .menubar .file:hover .dropdown-content,
@@ -738,17 +739,16 @@
                         <a>Smart replace</a>
                     </div>
                 </div>
-                <button id="sidebar" title="Toggle sidebar"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/sidebar-toggle.png?raw=true" style="width:20px;"></button>
             </div>
 
             <div class="rightside">
                 <div class="tools">
-                    <button id="copy" title="Copy tab"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/copy.png?raw=true" style="width:20px;"></button>
-                    <button id="repair" title="Repair indentation"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/repair-icon-2048x2048-0z7vbaam.png?raw=true" style="width:20px;"></button>
+                    <button id="copy" title="Copy tab"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/images/copy-icon.png?raw=true" style="width:20px;"></button>
+                    <button id="repair" title="Repair indentation"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/images/repair-icon.png?raw=true" style="width:20px;"></button>
                 </div>
                 <span class="divider">|</span>
                 <div class="run options">
-                    <button id="btnRun" title="Run"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/play-332.png?raw=true" style="width:20px;"></button>
+                    <button id="btnRun" title="Run"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/images/play.png?raw=true" style="width:20px;"></button>
                 </div>
                 <span class="divider">|</span>
                 <div class="time">
@@ -773,7 +773,7 @@
                 </div>
             </div>
         </div>
-
+		
         <div class="sidebar">
             <div class="sidebar-top">
 
@@ -786,8 +786,8 @@
 
 
                 <div class="load-save-row">
-                    <button id="btnLoad" title="Load"><img style="width:15px; image-rendering: crisp-edges;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/open.png?raw=true"></button>
-                    <button id="btnSave" title="Save"><img style="width:15px; image-rendering: crisp-edges;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/save.png?raw=true"></button>
+                    <button id="btnLoad" title="Load"><img style="width:15px; image-rendering: crisp-edges;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/images/open.png?raw=true"></button>
+                    <button id="btnSave" title="Save"><img style="width:15px; image-rendering: crisp-edges;" src="https://github.com/cat-ci/Sablescript/blob/main/.github/images/save.png?raw=true"></button>
                 </div>
 
 
@@ -797,8 +797,8 @@
             </div>
 
             <div class="sidebar-bottom">
-                <button id="btnExtensions" title="Extensions"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/toolbox.png?raw=true" style="width:15px;"></button>
-                <button id="btnSettings" title="Settings"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/settings.png?raw=true" style="width:15px;"></button>
+                <button id="btnExtensions" title="Extensions"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/images/toolbox.png?raw=true" style="width:15px;"></button>
+                <button id="btnSettings" title="Settings"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/images/settings.png?raw=true" style="width:15px;"></button>
             </div>
         </div>
 
@@ -807,7 +807,7 @@
 
 
             <div class="topbar">
-
+				<button id="sidebar" title="Toggle sidebar"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/images/sidebar-toggle.png?raw=true" style="width:20px;"></button>
                 <div class="file-info">
 
                     <span class="filename-label" id="filenameBaseLabel">untitled</span>
