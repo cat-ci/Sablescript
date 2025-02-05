@@ -44,7 +44,7 @@
                 flex-direction: row;
             }
 
-            /* Sidebar */
+            
             .sidebar {
                 width: 200px;
                 border-right: 1px solid transparent;
@@ -76,7 +76,7 @@
                 outline:none;
             }
 
-            /* New file button */
+            
             #btnNew {
                 width: 100%;
                 margin-bottom: 8px;
@@ -97,7 +97,7 @@
                 filter:opacity(60%);
             }
 
-            /* Load/Save Buttons */
+            
             .load-save-row {
                 display: flex;
                 flex-direction: row;
@@ -130,7 +130,7 @@
                 filter:invert(100%);
             }
 
-            /* Tabs */
+            
             .tabs-container {
                 background-color: #1e1e2e;
                 backdrop-filter: blur(10px);
@@ -165,7 +165,7 @@
                 border-color: #66aaff;
             }
 
-            /* Tab Title */
+            
             .tab-title {
                 display: inline-block;
             }
@@ -178,7 +178,7 @@
                 padding: 2px 4px;
             }
 
-            /* Tab Close Button */
+            
             .tab-close {
                 position: absolute;
                 right: 4px;
@@ -197,7 +197,7 @@
                 color: red;
             }
 
-            /* Sidebar Bottom */
+            
             .sidebar-bottom {
                 padding: 8px;
                 display: flex;
@@ -222,14 +222,14 @@
                 backdrop-filter: blur(8px);
             }
 
-            /* Main Section */
+            
             .main-section {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
             }
 
-            /* Top Bar */
+            
             .topbar {
                 display: flex;
                 align-items: center;
@@ -239,7 +239,7 @@
                 background: transparent;
             }
 
-            /* File Info */
+            
             .file-info {
                 flex: 1;
                 text-align: center;
@@ -281,7 +281,7 @@
                 color: #333;
             }
 
-            /* Buttons in Top Bar */
+            
             .topbar button {
                 border-radius: 3px;
                 cursor: pointer;
@@ -302,7 +302,7 @@
                 backdrop-filter: blur(8px);
             }
 
-            /* Editor Container */
+            
             .editor-container {
                 flex: 1;
                 display: flex;
@@ -314,7 +314,7 @@
                 margin-left:10px;
             }
 
-            /* CodeMirror Styling */
+            
             .CodeMirror {
                 height: 100%;
             }
@@ -330,7 +330,7 @@
                 overflow-x: auto !important;
             }
 
-            /* Status Bar */
+            
             .status-bar {
                 height: 24px;
                 display: flex;
@@ -343,7 +343,7 @@
                 filter:opacity(70%);
             }
 
-            /* Buttons */
+            
             button {
                 background-color:transparent;
                 border:none;
@@ -361,7 +361,7 @@
             }
 
 
-            /* Button Group */
+            
             .btn-group {
                 display: none;
                 flex-wrap: wrap;
@@ -433,89 +433,89 @@
                 background: #585b70;
             }
 
-            /* --- Syntax Highlighting --- */
+            
 
-            /* Keywords */
+            
             .cm-s-custom-dark .cm-keyword {
                 color: #cba6f7;
                 font-weight: bold;
             }
 
-            /* Strings */
+            
             .cm-s-custom-dark .cm-string {
                 color: #a6e3a1;
             }
 
-            /* Numbers */
+            
             .cm-s-custom-dark .cm-number {
                 color: #fab387;
             }
 
-            /* Variables */
+            
             .cm-s-custom-dark .cm-variable {
                 color: #f9e2af;
             }
 
-            /* Operators */
+            
             .cm-s-custom-dark .cm-operator {
                 color: #f38ba8;
             }
 
-            /* Functions */
+            
             .cm-s-custom-dark .cm-def {
                 color: #89b4fa;
                 font-weight: bold;
             }
 
-            /* Comments */
+            
             .cm-s-custom-dark .cm-comment {
                 color: #6c7086;
                 font-style: italic;
             }
 
-            /* Brackets */
+            
             .cm-s-custom-dark .cm-bracket {
                 color: #f5e0dc;
             }
 
-            /* Matching Brackets */
+            
             .cm-s-custom-dark .CodeMirror-matchingbracket {
                 background: rgba(255, 184, 108, 0.3);
                 border-bottom: 2px solid #fab387;
             }
 
-            /* HTML Tags */
+            
             .cm-s-custom-dark .cm-tag {
                 color: #f38ba8;
             }
 
-            /* Attributes */
+            
             .cm-s-custom-dark .cm-attribute {
                 color: #f9e2af;
             }
 
-            /* CSS Properties */
+            
             .cm-s-custom-dark .cm-property {
                 color: #fab387;
             }
 
-            /* CSS Values */
+            
             .cm-s-custom-dark .cm-variable-2 {
                 color: #94e2d5;
             }
 
-            /* --- Editor Styling --- */
+            
             .CodeMirror {
                 height: 100%;
                 border-radius: 8px;
             }
 
-            /* Matching Bracket Highlight */
+            
             .CodeMirror-matchingbracket {
                 outline: 1px solid #fab387;
             }
 
-            /* Gutter */
+            
             .cm-s-custom-dark .CodeMirror-gutters {
                 background: #1e1e2e;
                 border-right: 1px solid #313244;
@@ -538,13 +538,13 @@
             }
         </style>
         <style>
-            /* Fix Menubar */
+            
             .menubar {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 30px; /* Thin and compact */
+                height: 30px; 
                 background: #1e1e2e;
                 backdrop-filter: blur(10px);
                 filter: opacity(80%);
@@ -556,12 +556,12 @@
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
 
-            /* Add padding to body to prevent overlap */
+            
             body {
-                padding-top: 30px; /* Pushes everything below the menu bar */
+                padding-top: 30px; 
             }
 
-            /* Compact left and right menus */
+            
             .menubar .leftside,
             .menubar .rightside {
                 display: flex;
@@ -569,7 +569,7 @@
                 gap: 10px;
             }
 
-            /* Menu bar buttons */
+            
             .menubar .dropbtn,
             .menubar button {
                 background: transparent;
@@ -586,7 +586,7 @@
                 filter: brightness(90%);
             }
 
-            /* Dropdown menus */
+            
             .menubar .dropdown-content {
                 position: absolute;
                 top: 100%;
@@ -608,7 +608,7 @@
                 display: block;
             }
 
-            /* Dropdown menu items */
+            
             .menubar .dropdown-content a {
                 color: white;
                 padding: 6px 10px;
@@ -621,7 +621,7 @@
                 background: rgba(255, 255, 255, 0.1);
             }
 
-            /* Icons styling */
+            
             .menubar button img {
                 width: 18px;
                 height: 18px;
@@ -629,20 +629,20 @@
                 vertical-align: middle;
             }
 
-            /* Compact divider */
+            
             .menubar .divider {
                 color: white;
                 font-weight: bold;
                 padding: 0 5px;
             }
 
-            /* Time display */
+            
             .menubar .time {
                 color: white;
                 font-size: 14px;
             }
             .sidebar-search {
-                margin-top: 22px; /* Push search field down */
+                margin-top: 22px; 
             }
         </style>
 
@@ -709,7 +709,7 @@
                             timeElement.textContent = `${hours}:${minutes}`;
                         }
 
-                        // Update time immediately and then every second
+                        
                         updateTime();
                         setInterval(updateTime, 1000);
                     </script>
@@ -1190,7 +1190,7 @@
         <script>
             window.addEventListener("beforeunload", (event) => {
                 event.preventDefault();
-                event.returnValue = ""; // Required for modern browsers
+                event.returnValue = ""; 
             });
         </script>
         <script>
