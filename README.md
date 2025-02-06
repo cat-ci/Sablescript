@@ -7,7 +7,6 @@ to change language or file name click the title on the top double click the name
 repair fixes indentaion currently and in future will fix simple syntax errors
 run currently only runs html files im working on getting other languages to run
 
-the "UTF-8 | Windows (CR LF)" currently means nothing and doesent update
 
 future updates:
 tab linking will allow you to link content e.g "<img (src)="./image.png">" linking to another open tab<br>
