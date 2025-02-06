@@ -73,6 +73,30 @@
                 <span class="divider">|</span>
                 <div class="run options">
                     <button id="btnRun" title="Run"><img src="https://github.com/cat-ci/Sablescript/blob/main/.github/images/play.png?raw=true" style="width:20px;"></button>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            const runButton = document.getElementById("runButton");
+                            const btnRun = document.getElementById("btnRun");
+                            const filenameExt = document.getElementById("filenameExt");
+
+                            function updateRunButtonState() {
+                                const selectedExt = filenameExt.value;
+                                const disable = selectedExt === "txt" || selectedExt === "php";
+
+                                [runButton, btnRun].forEach(button => {
+                                    if (button) {
+                                        button.disabled = disable;
+                                        button.style.opacity = disable ? "0.5" : "1";
+                                        button.style.cursor = disable ? "not-allowed" : "pointer";
+                                        button.title = disable ? "Run is not available for this language" : "Run";
+                                    }
+                                });
+                            }
+
+                            filenameExt.addEventListener("change", updateRunButtonState);
+                            updateRunButtonState();
+                        });
+                    </script>
                 </div>
                 <span class="divider">|</span>
                 <div class="time">
