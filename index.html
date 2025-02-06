@@ -44,7 +44,7 @@
                 flex-direction: row;
             }
 
-            
+
             .sidebar {
                 width: 200px;
                 border-right: 1px solid transparent;
@@ -76,7 +76,7 @@
                 outline:none;
             }
 
-            
+
             #btnNew {
                 width: 100%;
                 margin-bottom: 8px;
@@ -97,7 +97,7 @@
                 filter:opacity(60%);
             }
 
-            
+
             .load-save-row {
                 display: flex;
                 flex-direction: row;
@@ -130,7 +130,6 @@
                 filter:invert(100%);
             }
 
-            
             .tabs-container {
                 background-color: #1e1e2e;
                 backdrop-filter: blur(10px);
@@ -165,7 +164,6 @@
                 border-color: #66aaff;
             }
 
-            
             .tab-title {
                 display: inline-block;
             }
@@ -178,7 +176,6 @@
                 padding: 2px 4px;
             }
 
-            
             .tab-close {
                 position: absolute;
                 right: 4px;
@@ -197,7 +194,6 @@
                 color: red;
             }
 
-            
             .sidebar-bottom {
                 padding: 8px;
                 display: flex;
@@ -216,20 +212,17 @@
                 filter:invert(100%);
             }
 
-
             .sidebar-bottom button:hover {
                 filter: brightness(90%);
                 backdrop-filter: blur(8px);
             }
 
-            
             .main-section {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
             }
 
-            
             .topbar {
                 display: flex;
                 align-items: center;
@@ -238,8 +231,29 @@
                 padding: 0 10px;
                 background: transparent;
             }
+            .title {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                position: relative;
+                top: -5px;
+            }
 
-            
+            .title img {
+                width: 25px;
+                height: auto;
+                position: relative;
+                top: -4px;
+            }
+
+            .title h1 {
+                color: white;
+                font-size: 16px;
+                margin: 0;
+                display: flex;
+                align-items: center;
+            }
+
             .file-info {
                 flex: 1;
                 text-align: center;
@@ -286,7 +300,7 @@
                 color: #333;
             }
 
-            
+
             .topbar button {
                 border-radius: 3px;
                 cursor: pointer;
@@ -307,7 +321,7 @@
                 backdrop-filter: blur(8px);
             }
 
-            
+
             .editor-container {
                 flex: 1;
                 display: flex;
@@ -319,7 +333,7 @@
                 margin-left:10px;
             }
 
-            
+
             .CodeMirror {
                 height: 100%;
             }
@@ -335,7 +349,7 @@
                 overflow-x: auto !important;
             }
 
-            
+
             .status-bar {
                 height: 24px;
                 display: flex;
@@ -348,7 +362,7 @@
                 filter:opacity(70%);
             }
 
-            
+
             button {
                 background-color:transparent;
                 border:none;
@@ -366,7 +380,6 @@
             }
 
 
-            
             .btn-group {
                 display: none;
                 flex-wrap: wrap;
@@ -438,94 +451,77 @@
                 background: #585b70;
             }
 
-            
-
-            
             .cm-s-custom-dark .cm-keyword {
                 color: #cba6f7;
                 font-weight: bold;
             }
 
-            
             .cm-s-custom-dark .cm-string {
                 color: #a6e3a1;
             }
 
-            
+
             .cm-s-custom-dark .cm-number {
                 color: #fab387;
             }
 
-            
             .cm-s-custom-dark .cm-variable {
                 color: #f9e2af;
             }
 
-            
             .cm-s-custom-dark .cm-operator {
                 color: #f38ba8;
             }
 
-            
             .cm-s-custom-dark .cm-def {
                 color: #89b4fa;
                 font-weight: bold;
             }
 
-            
             .cm-s-custom-dark .cm-comment {
                 color: #6c7086;
                 font-style: italic;
             }
 
-            
             .cm-s-custom-dark .cm-bracket {
                 color: #f5e0dc;
             }
 
-            
             .cm-s-custom-dark .CodeMirror-matchingbracket {
                 background: rgba(255, 184, 108, 0.3);
                 border-bottom: 2px solid #fab387;
             }
 
-            
             .cm-s-custom-dark .cm-tag {
                 color: #f38ba8;
             }
 
-            
             .cm-s-custom-dark .cm-attribute {
                 color: #f9e2af;
             }
 
-            
             .cm-s-custom-dark .cm-property {
                 color: #fab387;
             }
 
-            
             .cm-s-custom-dark .cm-variable-2 {
                 color: #94e2d5;
             }
 
-            
             .CodeMirror {
                 height: 100%;
                 border-radius: 8px;
             }
 
-            
             .CodeMirror-matchingbracket {
                 outline: 1px solid #fab387;
             }
 
-            
             .cm-s-custom-dark .CodeMirror-gutters {
                 background: #1e1e2e;
                 border-right: 1px solid #313244;
             }
-            
+
         </style>
         <style>
 
@@ -543,13 +539,13 @@
             }
         </style>
         <style>
-            
+
             .menubar {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 30px; 
+                height: 30px;
                 background: #1e1e2e;
                 backdrop-filter: blur(10px);
                 filter: opacity(80%);
@@ -561,12 +557,12 @@
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
 
-            
+
             body {
-                padding-top: 30px; 
+                padding-top: 30px;
             }
 
-            
+
             .menubar .leftside,
             .menubar .rightside {
                 display: flex;
@@ -574,7 +570,7 @@
                 gap: 10px;
             }
 
-            
+
             .menubar .dropbtn,
             .menubar button {
                 background: transparent;
@@ -591,7 +587,7 @@
                 filter: brightness(90%);
             }
 
-            
+
             .menubar .dropdown-content {
                 position: absolute;
                 top: 100%;
@@ -613,7 +609,7 @@
                 display: block;
             }
 
-            
+
             .menubar .dropdown-content a {
                 color: white;
                 padding: 6px 10px;
@@ -626,7 +622,7 @@
                 background: rgba(255, 255, 255, 0.1);
             }
 
-            
+
             .menubar button img {
                 width: 18px;
                 height: 18px;
@@ -634,20 +630,17 @@
                 vertical-align: middle;
             }
 
-            
+
             .menubar .divider {
                 color: white;
                 font-weight: bold;
                 padding: 0 5px;
             }
 
-            
+
             .menubar .time {
                 color: white;
                 font-size: 14px;
-            }
-            .sidebar-search {
-                margin-top: 22px; 
             }
         </style>
 
@@ -714,7 +707,7 @@
                             timeElement.textContent = `${hours}:${minutes}`;
                         }
 
-                        
+
                         updateTime();
                         setInterval(updateTime, 1000);
                     </script>
@@ -725,8 +718,13 @@
 
         <div class="sidebar">
             <div class="sidebar-top">
-				<div class="inner-topbar">
-                    
+                <div class="inner-topbar">
+                    <span class="title">
+                        <img src="https://github.com/cat-ci/Sablescript/blob/main/.github/images/logos/sablescripttransparent.png?raw=true">
+                        <h1>
+                            Sablescript
+                        </h1>
+                    </span>
                 </div>
                 <div class="sidebar-search">
                     <input type="search" placeholder="Search..." />
@@ -1195,7 +1193,7 @@
         <script>
             window.addEventListener("beforeunload", (event) => {
                 event.preventDefault();
-                event.returnValue = ""; 
+                event.returnValue = "";
             });
         </script>
         <script>
