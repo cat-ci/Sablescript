@@ -44,7 +44,6 @@
                 flex-direction: row;
             }
 
-
             .sidebar {
                 width: 200px;
                 border-right: 1px solid transparent;
@@ -238,6 +237,14 @@
                 position: relative;
                 top: -5px;
             }
+            
+            .rightside2 {
+                display: flex;
+                align-items: center;             
+            }
+            #runButton{
+            	color:white;
+            }
 
             .title img {
                 width: 25px;
@@ -361,7 +368,10 @@
                 color:white;
                 filter:opacity(70%);
             }
-
+			
+            #statusEncoding{
+            	margin-left:8px;
+            }
 
             button {
                 background-color:transparent;
@@ -787,8 +797,15 @@
                 <textarea id="codeEditor"></textarea>
             </div>
             <div class="status-bar">
-                <div id="statusText">Line 1, Col 1</div>
-                <div id="statusEncoding">UTF-8 | Windows (CR LF)</div>
+                <div class="leftside">
+                    <div id="statusText">Line 1, Col 1</div>
+                </div>
+                <div class="rightside2">
+                    <button id="runButton" title="Run">Run</button>
+                    <span class="divider">|</span>
+                    <div id="statusEncoding">UTF-8 | Windows (CR LF)</div>
+                </div>
+                
             </div>
         </div>
 
@@ -820,7 +837,39 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/javascript-hint.min.js"></script>
 
 
+        <script>
 
+            const runButton = document.getElementById('runButton');
+            runButton.addEventListener('click', function () {
+                const codeContent = editor.getValue();
+                var newWindow = window.open("", "miniWindow", "width=600,height=400,resizable=yes");
+
+                if (newWindow) {
+                    newWindow.document.write(codeContent);
+                    newWindow.document.close();
+                } else {
+                    alert("Popup blocked! Please allow pop-ups for this site.");
+                }
+            });
+			function updateEncodingStatus() {
+    let encoding = "UTF-8";
+    let lineEnding = "Unknown";
+    
+    if (navigator.userAgent.indexOf("Windows") !== -1) {
+        lineEnding = "Windows (CR LF)";
+    } else if (navigator.userAgent.indexOf("Mac") !== -1) {
+        lineEnding = "Mac (CR)";
+    } else if (navigator.userAgent.indexOf("Linux") !== -1 || navigator.userAgent.indexOf("X11") !== -1) {
+        lineEnding = "Linux/Unix (LF)";
+    }
+    
+    document.getElementById("statusEncoding").innerText = `${encoding} | ${lineEnding}`;
+}
+
+// Run the function on page load
+window.onload = updateEncodingStatus;
+
+        </script>
         <script>
 
             let tabs = [];
