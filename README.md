@@ -1,4 +1,4 @@
-https://cat-ci.github.io/Sablescript/ 
+[sablescript](https://catci.net) 
 this is my first public website after a while of practicing 
 This is a simple online IDE im working on using codemirror 
 
