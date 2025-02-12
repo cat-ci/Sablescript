@@ -1,241 +1,370 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8">
-        <title>Sablescript</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Catci</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                image-rendering: pixelated;
+                color: white;
+            }
+            body {
+                background-color: #0d0c0d;
+                font-family: 'Geist', serif;
+            }
+            .projects {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+                max-width: 100%;
+            }
+            .project {
+                background-color: #0f0f10;
+                border-radius: 10px;
+                border: 1px solid #1e1e1f;
+                max-width: 480px;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                height: 100%;
+            }
+            .project .projectbanner img{
+                width: 100%;
+                height:100%;
+            }
+            .projectbanner {
+                overflow: hidden;
+            }
+            .projectbanner img {
+                transition: .2s ease;
+            }
+            .project:hover .projectbanner img {
+                transform: scale(1.1);
+                filter:brightness(0.6);
+                transition: transform .4s ease;
+                transition: .4s ease;
+            }
+            .project .description {
+                padding: 15px;
+                flex-grow: 1
+            }
+            .project h4 {
+                font-family: 'Geist', serif;
+                display: inline-block;
+                font-size:18px;
+                transition:ease 0.2s;
+            }
+            .project .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .project:hover .description h4{
+                transition:ease 0.4s;
+                opacity:0.6;
+            }
+            .project .info p {
+                color: #6d6c71;
+                margin-top: 20px;
+                font-size:14px;
+            }
+            .project .language{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                margin-top: 10px;
+                margin-bottom:5px;
+            }
+            .project .language .js{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                background-color:rgba(247, 223, 30, 0.1);
+                color:rgb(247, 223, 30);
+                padding:4px 8px;
+                border-radius:100px;
+                font-size:12px;
+            }
 
-        <link
-              rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.css"
-              />
+            .project .language .cm{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                background-color:#575758;
+                color:white;
+                padding:4px 8px;
+                border-radius:100px;
+                font-size:12px;
+            }
+            .project .runcontainer {
+                background-color: #151516;
+                display: flex;
+                justify-content: space-between;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                border-top: 1px solid #1e1e1f;
+            }
+            .project a {
+                width: 45%;
+                margin: 10px;
+                padding: 5px 30px;
+                border-radius: 8px;
+                background-color: #1e1e1f;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                cursor: pointer;
+                font-family: 'Geist', serif;
+                transition: 0.3s;
+                color: inherit;
+            }
+            .project a:hover {
+                filter: brightness(80%);
+                transition: 0.7s;
+            }
+            .project .runcontainer .run {
+                background-color: white;
+                color: #050505;
+                margin-left: 5%;
+            }
+            .project .runcontainer .source {
+                margin-right: 5%;
+            }
+            .project a img {
+                width: 15px;
+                height: 15px;
+            }
+            .project .fastinfo{
+                padding:1px 5px;
+                border-radius:100px;
+                margin:0;
+                font-size:11px;
+            }
+            .project .indev{
+                background-color:#543737;
+                border:2px solid #e85454;
+            }
+            .none{
+                display:none;
+            }
+            .project .runcontainer .disabled{
+                cursor: not-allowed !important;
+                filter:brightness(0.7);
+            }
+            .project .disabled:hover{
+                filter: brightness(0.7) !important;
+            }
+            .project .featured{
+                background-color:#575758;
+                border:2px solid white;
+            }
+            .tool .run{
+                background-color:white;
+                cursor: pointer;
+                color:black;
+                font-family: 'Geist', serif;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                padding: 5px 30px;
+                border-radius: 8px;
+                border:none;
 
-        <link
-              rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/theme/eclipse.min.css"
-              />
-
-
-        <link
-              rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.css"
-              />
-        <link rel="icon" type="image/x-icon" href="https://catci.net/images/sablescriptbliss.ico">
-        <link rel="stylesheet" href="https://catci.net/style.css">
-
+            }
+            .tool .run img{
+                width:15px;
+            }
+            .tool .language{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                margin-top: 10px;
+                margin-bottom:5px;
+            }
+            .tool .language .js{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                background-color:rgba(247, 223, 30, 0.1);
+                color:rgb(247, 223, 30);
+                padding:4px 8px;
+                border-radius:100px;
+                font-size:12px;
+            }
+            .tool .runcontainer{
+                display: flex;
+                justify-content: space-between;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            .tool{
+                background-color: #0f0f10;
+                border-radius: 10px;
+                border: 1px solid #1e1e1f;
+                max-width: 480px;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            .tool p{
+                color: #6d6c71;
+                margin-top: 20px;
+                font-size:14px;
+            }
+            .tool h4{
+                font-family: 'Geist', serif;
+                display: inline-block;
+                font-size:18px;
+                transition:ease 0.2s;
+            }
+            .tool .fastinfo{
+                padding:1px 5px;
+                border-radius:100px;
+                margin:0;
+                font-size:11px;
+            }
+            .tool .featured{
+                background-color:#575758;
+                border:2px solid white;
+            }
+            .tool .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .tool .description {
+                padding: 15px;
+                flex-grow: 1
+            }
+        </style>
     </head>
-
     <body>
-        <div class="menubar">
+        <div class="landing">
 
-            <div class="leftside">
-                <button onclick="window.location.href='https://catci.net'">
-                	<img src="/images/catcibold.png">
-                </button>
-                <div class="file">
-                    <button class="dropbtn">File</button>
-                    <div class="dropdown-content">
-                        <a>New</a>
-                        <a>Open</a>
-                        <a>Save</a>
-                        <a>Save as</a>
+        </div>
+        <div class="banner">
+            <h2>
+                Projects
+            </h2>
+            <span>
+
+            </span>
+        </div>
+        <div class="projects">
+            <div class="project">
+                <div class="projectbanner">
+                    <img src="https://catci.net/images/thumbnail.png">
+                </div>
+                <div class="description">
+                    <div class="header">
+                        <h4>Sablescript</h4>
+                        <span class="fastinfo featured">
+                            <img src="https://catci.net/images/star.svg" style="width:10px; filter: invert(1);"> Featured
+                        </span>
+                    </div>
+                    <div class="info">
+                        <p>Sablescript is a lightweight, efficient IDE using Codewith fast, resource-friendly performance. It supports multiple languages, tabs and offers features like syntax highlighting, code suggestions, and autocomplete.</p>
+                        <span class="language">
+                            <span class="js"><img src="https://catci.net/images/javascript.svg" style="width:15px;">Javascript</span>
+                            <span class="cm"><img src="https://catci.net/images/Baboon.svg" style="width:15px;">CodeMirror</span>
+                        </span>
                     </div>
                 </div>
-                <div class="edit">
-                    <button class="dropbtn">Edit</button>
-                    <div class="dropdown-content">
-                        <a>Undo</a>
-                        <a>Redo</a>
-                        <hr>
-                        <a>Copy</a>
-                        <a>Copy all</a>
-                        <a>Paste</a>
-                        <a>Select all</a>
-                        <hr>
-                        <a>Repair</a>
+                <div class="runcontainer">
+                    <a href="https://catci.net/sablescript.html" class="run"><img src="https://catci.net/images/play.svg">Open</a>
+                    <a href="https://github.com/cat-ci/Sablescript" class="source"><img src="https://catci.net/images/github.svg" style="filter: invert(1);  width:20px; height:20px;">Source</a>
+                </div>
+            </div>
+
+            <!--other project-->
+
+            <div class="project">
+                <div class="projectbanner">
+                    <img src="https://catci.net/images/placeholder.png">
+                </div>
+                <div class="description">
+                    <div class="header">
+                        <h4>Sablesnap</h4>
+                        <span class="fastinfo indev">
+                            <img src="https://catci.net/images/importantred.svg" style="width:10px;"> Indev
+                        </span>
+                    </div>
+                    <div class="info">
+                        <p>SableSnap makes coding easy and fun by letting you build apps, websites, and games with simple drag-and-drop blocks. Whether you're a complete beginner or just starting to learn, it helps you create real projects without worrying about complicated code.</p>
+                        <span class="language">
+                            <span class="js"><img src="https://catci.net/images/javascript.svg" style="width:15px;">Javascript</span>
+                        </span>
                     </div>
                 </div>
-                <div class="search">
-                    <button class="dropbtn">Search</button>
-                    <div class="dropdown-content">
-                        <a>Find</a>
-                        <a>Replace</a>
-                        <a>Go to line</a>
-                        <a>Smart replace</a>
+                <div class="runcontainer">
+                    <a href="#" class="run disabled"><img src="https://catci.net/images/play.svg">Open</a>
+                    <a href="#" class="source disabled"><img src="https://catci.net/images/github.svg" style="filter: invert(1);  width:20px; height:20px;">Source</a>
+                </div>
+            </div>
+
+            <!--other project-->
+
+            <div class="project">
+                <div class="projectbanner">
+                    <img src="https://catci.net/images/thumbnail.png">
+                </div>
+                <div class="description">
+                    <div class="header">
+                        <h4>Sablescript</h4>
+                        <span class="fastinfo none">
+                            <img src="https://catci.net/images/star.svg" style="width:10px; filter: invert(1);">
+                        </span>
+                    </div>
+                    <div class="info">
+                        <p>Sablescript is a lightweight, efficient IDE using Codewith fast, resource-friendly performance. It supports multiple languages, tabs and offers features like syntax highlighting, code suggestions, and autocomplete.</p>
+                        <span class="language">
+                            <span class="js"><img src="https://catci.net/images/javascript.svg" style="width:15px;">Javascript</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="runcontainer">
+                    <a href="https://catci.net/sablescript.html" class="run"><img src="https://catci.net/images/play.svg">Open</a>
+                    <a href="https://github.com/cat-ci/Sablescript" class="source"><img src="https://catci.net/images/github.svg" style="filter: invert(1);  width:20px; height:20px;">Source</a>
+                </div>
+            </div>
+            <div class="tools">
+                <div class="tool">
+                    <div class="description">
+                        <div class="header">
+                            <h4>
+                                Instant resizer
+                            </h4>
+                            <span class="fastinfo featured">
+                                <img src="https://catci.net/images/star.svg" style="width:10px; filter: invert(1);"> Featured
+                            </span>
+                        </div>
+                        <div class="info">
+                            <p>
+                                Client side image resing, instant, no waiting for uploads and downloads
+                            </p>
+                            <div class="runcontainer">
+                                <div class="language">
+                                    <span class="js"><img src="https://catci.net/images/javascript.svg" style="width:15px;">Javascript</span>
+                                </div>
+                                <button class="run">
+                                    <img src="https://catci.net/images/play.svg">Run
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="rightside">
-                <div class="tools">
-                    <button id="copy" title="Copy tab"><img src="https://catci.net/images/copy-icon.png" style="width:20px;"></button>
-                    <button id="repair" title="Repair indentation"><img src="https://catci.net/images/repair-icon.png" style="width:20px;"></button>
-                </div>
-                <span class="divider">|</span>
-                <div class="run options">
-                    <button id="btnRun" title="Run"><img src="https://catci.net/images/play.png" style="width:20px;"></button>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function () {
-                            const runButton = document.getElementById("runButton");
-                            const btnRun = document.getElementById("btnRun");
-                            const filenameExt = document.getElementById("filenameExt");
-
-                            function updateRunButtonState() {
-                                const selectedExt = filenameExt.value;
-                                const disable = selectedExt === "txt" || selectedExt === "php";
-
-                                [runButton, btnRun].forEach(button => {
-                                    if (button) {
-                                        button.disabled = disable;
-                                        button.style.opacity = disable ? "0.5" : "1";
-                                        button.style.cursor = disable ? "not-allowed" : "pointer";
-                                        button.title = disable ? "Run is not available for this language" : "Run";
-                                    }
-                                });
-                            }
-
-                            filenameExt.addEventListener("change", updateRunButtonState);
-                            updateRunButtonState();
-                        });
-                    </script>
-                </div>
-                <span class="divider">|</span>
-                <div class="time">
-                    <script>
-                        function updateTime() {
-                            const timeElement = document.getElementById("time");
-                            if (!timeElement) return;
-
-                            const now = new Date();
-                            const hours = now.getHours().toString().padStart(2, '0');
-                            const minutes = now.getMinutes().toString().padStart(2, '0');
-                            const seconds = now.getSeconds().toString().padStart(2, '0');
-
-                            timeElement.textContent = `${hours}:${minutes}`;
-                        }
-
-
-                        updateTime();
-                        setInterval(updateTime, 1000);
-                    </script>
-                    <a id="time">00:00</a>
-                </div>
+            <div class="footer">
+                &copy;2025
             </div>
-        </div>
-
-        <div class="sidebar">
-            <div class="sidebar-top">
-                <div class="inner-topbar">
-                    <span class="title">
-                        <img src="https://catci.net/images/sablescripttransparent.png">
-                        <h1>
-                            Sablescript
-                        </h1>
-                    </span>
-                </div>
-                <div class="sidebar-search">
-                    <input type="search" placeholder="Search..." />
-                </div>
-
-
-                <button id="btnNew" title="New file">+</button>
-
-
-                <div class="load-save-row">
-                    <button id="btnLoad" title="Load"><img style="width:15px; image-rendering: crisp-edges;" src="https://catci.net/images/open.png"></button>
-                    <button id="btnSave" title="Save"><img style="width:15px; image-rendering: crisp-edges;" src="https://catci.net/images/save.png"></button>
-                </div>
-
-
-                <div class="tabs-container" id="tabsContainer">
-
-                </div>
-            </div>
-
-            <div class="sidebar-bottom">
-                <button id="btnExtensions" title="Extensions"><img src="https://catci.net/images/toolbox.png" style="width:15px;"></button>
-                <button id="btnSettings" title="Settings"><img src="https://catci.net/images/settings.png" style="width:15px;"></button>
-            </div>
-        </div>
-
-
-        <div class="main-section">
-
-
-            <div class="topbar">
-                <button id="sidebar" title="Toggle sidebar"><img src="https://catci.net/images/sidebar-toggle.png" style="width:20px;"></button>
-                <div class="file-info">
-
-                    <span class="filename-label" id="filenameBaseLabel">untitled</span>
-
-                    <input
-                           type="text"
-                           class="filename-input"
-                           id="filenameBaseInput"
-                           value="untitled"
-                           />
-
-                    <select id="filenameExt" class="filename-ext">
-                        <option value="txt">.txt</option>
-                        <option value="html">.html</option>
-                        <option value="css">.css</option>
-                        <option value="js">.js</option>
-                        <option value="py">.py</option>
-                        <option value="php">.php</option>
-                    </select>
-                </div>
-
-
-
-            </div>
-
-
-            <div class="editor-container">
-                <textarea id="codeEditor"></textarea>
-            </div>
-            <div class="status-bar">
-                <div class="leftside">
-                    <div id="statusText">Line 1, Col 1</div>
-                </div>
-                <div class="rightside2">
-                    <button id="runButton" title="Run">Run</button>
-                    <span class="divider">|</span>
-                    <div id="statusEncoding">UTF-8 | Windows (CR LF)</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <input
-               type="file"
-               id="fileInput"
-               accept=".txt,.html,.css,.js,.json,.md,.xml,.c,.cpp,.java,.py"
-               style="display: none"
-               />
-
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.js"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/javascript/javascript.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/css/css.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/htmlmixed/htmlmixed.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/xml/xml.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/clike/clike.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/php/php.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/python/python.min.js"></script>
-
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/edit/closetag.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/show-hint.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/xml-hint.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/html-hint.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/css-hint.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/addon/hint/javascript-hint.min.js"></script>
-
-        <script src="https://catci.net/script.js"></script>
-    </body>
-</html>
+            </body>
+        </html>
